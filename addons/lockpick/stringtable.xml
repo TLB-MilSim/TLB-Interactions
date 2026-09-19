@@ -141,6 +141,12 @@
             <Key ID="STR_tlbi_lockpick_set_aceLockpick_desc">
                 <English>Let ACE's vehicle Lockpick item pick doors as a lock pick kit, from the Door menu. tsp_breach's own actions only accept its own items.</English>
             </Key>
+            <Key ID="STR_tlbi_lockpick_set_vehicles">
+                <English>Pick vehicle locks</English>
+            </Key>
+            <Key ID="STR_tlbi_lockpick_set_vehicles_desc">
+                <English>With TLB Keys loaded, a locked vehicle whose keys you do not have is picked on this board, with a lock pick kit or a paperclip. Off: TLB Keys falls back to its own progress bar. Without TLB Keys this setting does nothing.</English>
+            </Key>
             <Key ID="STR_tlbi_lockpick_set_clipBends">
                 <English>Paperclip bends allowed</English>
             </Key>

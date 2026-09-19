@@ -52,6 +52,7 @@ tlbi_lockpick_presetDial = [
 tlbi_lockpick_enabled = true;
 tlbi_lockpick_takeOverTsp = true;
 tlbi_lockpick_aceLockpick = true;
+tlbi_lockpick_vehicles = true;
 tlbi_lockpick_clipBends = 2;
 tlbi_lockpick_classesMilitary = "";
 tlbi_lockpick_classesReinforced = "";
@@ -73,6 +74,14 @@ tlbi_lockpick_classesReinforced = "";
 [
     "tlbi_lockpick_aceLockpick", "CHECKBOX",
     ["$STR_tlbi_lockpick_set_aceLockpick", "$STR_tlbi_lockpick_set_aceLockpick_desc"],
+    LP_CATEGORY, true, 1
+] call CBA_fnc_addSetting;
+
+// Read by TLB Keys: whether a locked vehicle is picked on this board, or left
+// to its own progress bar. Harmless without that mod.
+[
+    "tlbi_lockpick_vehicles", "CHECKBOX",
+    ["$STR_tlbi_lockpick_set_vehicles", "$STR_tlbi_lockpick_set_vehicles_desc"],
     LP_CATEGORY, true, 1
 ] call CBA_fnc_addSetting;
 
