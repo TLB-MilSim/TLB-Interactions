@@ -1,16 +1,19 @@
 #include "..\script_component.hpp"
 /*
  * Author: TLB
- * Locks doors around the player, when tsp_breach is not loaded to do it. Runs
- * every two seconds from fn_postInit.
+ * Rolls the locks of the buildings around the player, when tsp_breach is not
+ * loaded to do it. Runs every three seconds from fn_postInit.
  *
- * There is no map-wide pass at mission start. The server picks one seed per
- * mission; each client rolls the buildings near it from that seed, the
- * building's class and position, and the door number - so every client arrives
- * at the same locked doors without a single public variable. Only a change a
- * player makes (unlocking, picking, locking) is broadcast, and a door that
- * already has a lock value - from a player, the mission or anything else - is
- * never rolled over.
+ * This is the safety net, not the only place locks are decided: fn_doorHelpers
+ * rolls the buildings around the door menu as it opens. The pass is still needed
+ * because the lock variable is read by the building's own vanilla actions and by
+ * ACE's door opening as well, and neither goes through our menu.
+ *
+ * The cost of a tick is the spatial query, so the query is what gets skipped. A
+ * standing player pays a speed check and a distance check, and queries twice a
+ * minute; a walking player queries once every 40 m. Keep the scan radius at
+ * least 10 m above the movement gate, or a player can stop inside a ring of
+ * buildings the last scan never covered.
  *
  * Arguments:
  * None
@@ -21,48 +24,30 @@
 
 if !(missionNamespace getVariable ["tlbi_lockpick_doorActions", true]) exitWith {};
 
-private _seed = missionNamespace getVariable "tlbi_lockpick_lockSeed";
-if (isNil "_seed") exitWith {};
+if (isNil "tlbi_lockpick_lockSeed" || {isNull player}) exitWith {};
 
-private _houseChance = missionNamespace getVariable ["tlbi_lockpick_lockHouses", 0.25];
-private _doorChance = missionNamespace getVariable ["tlbi_lockpick_lockDoors", 0.5];
+if ((missionNamespace getVariable ["tlbi_lockpick_lockHouses", 0.25]) <= 0
+    || {(missionNamespace getVariable ["tlbi_lockpick_lockDoors", 0.5]) <= 0}
+) exitWith {};
 
-if (_houseChance <= 0 || {_doorChance <= 0} || {isNull player}) exitWith {};
+// Faster than a sprint means no door is in reach. The gate below queries on the
+// first tick after slowing down, and the door menu rolls as it opens, so leaving
+// a vehicle never leaves a client with unrolled doors next to it.
+if (speed (vehicle player) > 25) exitWith {};
 
-private _blacklist = ((missionNamespace getVariable ["tlbi_lockpick_lockBlacklist", ""]) splitString (", ;" + toString [9, 10, 13])) apply {toLower _x};
+private _pos = getPosATL player;
+private _now = diag_tickTime;
+(missionNamespace getVariable ["tlbi_lockpick_lastScan", [[], -1e9]]) params ["_lastPos", "_lastTime"];
+
+// Query when the player has left the area the last one covered, and every 30
+// seconds regardless, so buildings created during the mission are picked up too.
+if (_lastPos isNotEqualTo []
+    && {_pos distance2D _lastPos < 40}
+    && {_now - _lastTime < 30}
+) exitWith {};
+
+missionNamespace setVariable ["tlbi_lockpick_lastScan", [_pos, _now]];
 
 {
-    private _house = _x;
-
-    if (isNil {_house getVariable "tlbi_lockpick_rolled"}) then {
-        _house setVariable ["tlbi_lockpick_rolled", true];
-
-        private _type = toLower typeOf _house;
-        private _listed = (_blacklist findIf {
-            if ((_x select [count _x - 1]) == "*") then {
-                (_type find (_x select [0, count _x - 1])) == 0
-            } else {
-                _x == _type
-            }
-        }) != -1;
-
-        if (!_listed) then {
-            private _doors = [_house] call tlbi_lockpick_fnc_doors;
-            private _where = (getPosWorld _house) apply {round _x};
-
-            if (count _doors > 0 && {([_seed, _type, _where] call tlbi_lockpick_fnc_roll) < _houseChance}) then {
-                {
-                    _x params ["_id", "_door"];
-                    private _variable = format ["bis_disabled_Door_%1", _id];
-
-                    if (isNil {_house getVariable _variable}
-                        && {(toLower _door find "glass") == -1}
-                        && {([_seed, _type, _where, _id] call tlbi_lockpick_fnc_roll) < _doorChance}
-                    ) then {
-                        _house setVariable [_variable, 1];
-                    };
-                } forEach _doors;
-            };
-        };
-    };
-} forEach nearestObjects [player, ["House"], 100];
+    [_x] call tlbi_lockpick_fnc_rollHouse;
+} forEach nearestObjects [player, ["House"], 50];

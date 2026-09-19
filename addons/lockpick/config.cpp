@@ -42,11 +42,13 @@ class CfgFunctions {
             class drawFace {};
             class finish {};
             class hasTool {};
+            class isClosed {};
             class isInside {};
             class lockTick {};
             class moduleLock {};
             class nearestDoor {};
             class roll {};
+            class rollHouse {};
             class mistake {};
             class onUnload {};
             class press {};

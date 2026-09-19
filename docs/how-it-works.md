@@ -252,15 +252,32 @@ player to be inside: `fn_isInside` casts a ray straight up and checks it hits
 this building. Pick lock requires a locked, closed door, the tool, and the player
 outside.
 
-**Random locking** (`fn_lockTick`). The server stores one random seed per mission
-(public, so JIP clients get it). Every 2 seconds each client looks at buildings
-within 100 m it hasn't rolled yet. For each, `fn_roll` hashes `[seed, class,
-rounded position]` into a number between 0 and 1 to decide whether the building
-has locks, then `[seed, class, position, door]` per door. Because the roll is
-deterministic, every client arrives at the same locks locally with **no network
-traffic**. A door that already has a lock value (from the mission or a player's
-public change) is never rolled over, glass doors are skipped, and blacklisted
-classes are ignored. Only player actions (unlock, lock, pick) are broadcast.
+**Random locking** (`fn_rollHouse`). The server stores one random seed per mission
+(public, so JIP clients get it). A building is rolled once: `fn_roll` hashes
+`[seed, class, rounded position]` into a number between 0 and 1 to decide whether
+it has locks at all, then `[seed, class, position, door]` per door. Because the
+roll is deterministic, every client arrives at the same locks locally with **no
+network traffic**. A door that already has a lock value (from the mission or a
+player's public change) is never rolled over, glass doors and doors standing open
+are skipped, and blacklisted classes are ignored. Only player actions (unlock,
+lock, pick) are broadcast.
+
+Nothing in ACE or vanilla decides that a door is locked, it only reads the lock,
+so the rolling has to happen before a door is used. It runs in two places:
+
+- **As the door menu opens** (`fn_doorHelpers`). The buildings within 25 m are
+  already looked up to place the helpers, so rolling them there costs nothing and
+  guarantees that any door in reach has been decided.
+- **In the background** (`fn_lockTick`, every 3 seconds). Needed because the lock
+  variable is also read by the building's own vanilla actions and by ACE's door
+  opening, which never touch our menu. The cost of a tick is the spatial query, so
+  the query is skipped unless the player has moved 40 m since the last one or 30
+  seconds have passed, and it is skipped entirely above sprinting speed, where no
+  door is in reach. A standing player queries twice a minute, a walking player
+  once every 40 m, within 50 m. The radius stays at least 10 m above the movement
+  gate, so a player cannot stop inside a ring of buildings the last query missed,
+  and the 30 second fallback picks up buildings created during the mission by Zeus
+  or a script.
 
 ## Stand-in items
 

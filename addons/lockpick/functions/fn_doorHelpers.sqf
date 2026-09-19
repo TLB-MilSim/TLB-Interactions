@@ -9,6 +9,9 @@
  * ACE_LogicDummy with a "Door" menu. The previous set is removed first, so there
  * are only ever as many helpers as doors next to the player.
  *
+ * The buildings found here are also rolled for locks (fn_rollHouse), which costs
+ * nothing extra because they have already been looked up.
+ *
  * Arguments:
  * None
  *
@@ -45,6 +48,10 @@ private _children = [
 
 {
     private _house = _x;
+
+    // Decide this building's locks before its menu is built, so a door in reach
+    // is always rolled even if the background pass has not covered it yet.
+    [_house] call tlbi_lockpick_fnc_rollHouse;
 
     {
         private _entry = _x;

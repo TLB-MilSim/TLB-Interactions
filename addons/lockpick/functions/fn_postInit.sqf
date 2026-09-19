@@ -84,4 +84,4 @@ if (!hasInterface) exitWith {};
     if (_menuType == 0) then { call tlbi_lockpick_fnc_doorHelpers };
 }] call CBA_fnc_addEventHandler;
 
-[{ call tlbi_lockpick_fnc_lockTick }, 2] call CBA_fnc_addPerFrameHandler;
+[{ call tlbi_lockpick_fnc_lockTick }, 3] call CBA_fnc_addPerFrameHandler;

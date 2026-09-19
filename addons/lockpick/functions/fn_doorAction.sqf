@@ -24,12 +24,7 @@ _entry params ["_id", "_door", "", "_openCondition", "_openStatement", "_closeCo
 private _lockVar = format ["bis_disabled_Door_%1", _id];
 private _locked = (_house getVariable [_lockVar, 0]) == 1;
 
-// Shut, by the building's own open condition when it has one.
-private _closed = if (_openCondition == "") then {
-    (_house animationSourcePhase format ["Door_%1_sound_source", _id]) < 0.5
-} else {
-    [_house, _openCondition] call tlbi_lockpick_fnc_doorRun
-};
+private _closed = [_house, _entry] call tlbi_lockpick_fnc_isClosed;
 
 private _tool = [TOOL_KIT, TOOL_CLIP] select (_name == "pickClip");
 

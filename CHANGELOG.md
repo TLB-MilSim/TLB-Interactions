@@ -2,6 +2,22 @@
 
 [← Back to README](README.md)
 
+## Unreleased
+
+### Changed
+
+- **Cheaper door lock scanning.** Random door locking used to search 100 m around
+  every player every 2 seconds. It now rolls a building as the door menu opens,
+  and the background pass runs every 3 seconds but only searches, within 50 m,
+  after the player has moved 40 m or 30 seconds have passed, and never above
+  sprinting speed. Which doors end up locked is unchanged. Thanks to
+  [@RicGonzalezb](https://github.com/RicGonzalezb) for the change and the report.
+
+### Fixed
+
+- A door standing open is no longer given a lock, so it cannot end up open and
+  locked at the same time.
+
 ## 1.1.0 (2026-09-17)
 
 ### Added
