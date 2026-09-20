@@ -56,7 +56,7 @@ if (!hasInterface) exitWith {};
 private _classes = ["Car", "Tank", "Motorcycle", "Helicopter", "Plane", "Ship_F"];
 
 private _pick = [
-    "TLBI_PickVehicle", localize "STR_tlbi_vehicle_action_pick", "\z\ace\addons\vehiclelock\ui\lockpick.paa",
+    "TLBI_PickVehicle", localize "STR_tlbi_vehicle_action_pick", QPATHTOF(data\icon_pick_ca.paa),
     {},
     { [_player, _target] call tlbi_vehicle_fnc_canPick },
     { [_target, _player] call tlbi_vehicle_fnc_pickActions },
@@ -65,7 +65,7 @@ private _pick = [
 
 // ACE's own picking, for when TLB Keys owns vehicles instead of this mod.
 private _pickAce = [
-    "TLBI_PickVehicleAce", localize "STR_ACE_VehicleLock_Action_Lockpick", "\z\ace\addons\vehiclelock\ui\lockpick.paa",
+    "TLBI_PickVehicleAce", localize "STR_ACE_VehicleLock_Action_Lockpick", QPATHTOF(data\icon_pick_ca.paa),
     { [_player, _target, "startLockpick"] call ace_vehiclelock_fnc_lockpick },
     {
         !(call tlbi_vehicle_fnc_picking)

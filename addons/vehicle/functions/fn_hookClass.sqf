@@ -33,9 +33,12 @@ tlbi_vehicle_actions params ["_pick", "_pickAce", "_hotwire"];
 // entry has to exist before it can be taken out.
 [_class, 0, ["ACE_MainActions"], _pick] call ace_interact_menu_fnc_addActionToClass;
 [_class, 0, ["ACE_MainActions"], _pickAce] call ace_interact_menu_fnc_addActionToClass;
-[_class, 1, [], _hotwire] call ace_interact_menu_fnc_addActionToClass;
+// Self actions hang under a root node named after the vehicle, not at the top
+// of the tree: an action added with an empty path is a sibling of that root and
+// never appears in the menu.
+[_class, 1, ["ACE_SelfActions"], _hotwire] call ace_interact_menu_fnc_addActionToClass;
 
 [_class, 0, ["ACE_MainActions", "ACE_lockpickVehicle"]] call ace_interact_menu_fnc_removeActionFromClass;
-[_class, 1, ["ACE_lockpickVehicle"]] call ace_interact_menu_fnc_removeActionFromClass;
+[_class, 1, ["ACE_SelfActions", "ACE_lockpickVehicle"]] call ace_interact_menu_fnc_removeActionFromClass;
 
 diag_log text format ["[TLB Interactions] vehicle actions on %1", _class];

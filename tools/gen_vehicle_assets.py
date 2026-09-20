@@ -229,6 +229,25 @@ def make_icon():
     save(img.resize((64, 64), Image.LANCZOS), "hotwire_ca")
 
 
+def make_pick_icon():
+    """The lock pick icon, drawn to match TLB Keys' own: a hook pick and a
+    tension wrench, crossed. Both mods show the same action, so they show the
+    same picture, and ours is drawn here rather than borrowed so it is there
+    without TLB Keys."""
+    s = SS
+    n = 128 * s
+    img = Image.new("RGBA", (n, n), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+
+    white = (255, 255, 255, 255)
+    d.rounded_rectangle([14 * s, 92 * s, 60 * s, 110 * s], radius=int(6 * s), fill=white)
+    d.line([(56 * s, 101 * s), (112 * s, 44 * s)], fill=white, width=int(7 * s))
+    d.line([(112 * s, 44 * s), (106 * s, 26 * s), (116 * s, 16 * s)], fill=white, width=int(7 * s), joint="curve")
+    d.line([(24 * s, 30 * s), (24 * s, 54 * s), (100 * s, 118 * s)], fill=white, width=int(8 * s), joint="curve")
+
+    save(img.resize((128, 128), Image.LANCZOS), "icon_pick_ca")
+
+
 def convert():
     candidates = [
         r"E:\SteamLibrary\steamapps\common\Arma 3 Tools\ImageToPAA\ImageToPAA.exe",
@@ -256,6 +275,7 @@ if __name__ == "__main__":
     make_barrel()
     make_strip()
     make_icon()
+    make_pick_icon()
     bad = [n for n, (w, h) in written if (w & (w - 1)) or (h & (h - 1))]
     print("%d textures, non power-of-two: %s" % (len(written), bad or "none"))
     convert()

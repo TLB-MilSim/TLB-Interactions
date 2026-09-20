@@ -32,7 +32,7 @@ private _statement = {
         [
             format ["TLBI_PickVehicle_%1", _tool],
             format [localize "STR_tlbi_vehicle_action_pickWith", getText (configFile >> "CfgWeapons" >> _item >> "displayName")],
-            "\z\ace\addons\vehiclelock\ui\lockpick.paa",
+            QPATHTOF(data\icon_pick_ca.paa),
             _statement, {true}, {}, [_tool, _item]
         ] call ace_interact_menu_fnc_createAction,
         [],
