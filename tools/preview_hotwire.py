@@ -77,9 +77,9 @@ def label(canvas, text, x, y, w, h, rgba=(30, 30, 26, 255)):
 def shroud(screws=4):
     c = Image.new("RGBA", (BW, BH), (0, 0, 0, 255))
     c = place(c, "column_co", 0, 0, 1, 1)
-    c = place(c, "shroud_ca", 0.06, 0.10, 0.88, 0.78)
+    c = place(c, "shroud_ca", 0.06, 0.145, 0.88, 0.672)
 
-    spots = [(0.13, 0.17), (0.85, 0.17), (0.13, 0.76), (0.85, 0.76), (0.49, 0.83), (0.49, 0.09)]
+    spots = [(0.13, 0.22), (0.85, 0.22), (0.13, 0.74), (0.85, 0.74), (0.49, 0.78), (0.49, 0.19)]
     for sx, sy in spots[:screws]:
         c = place(c, "screw_ca", sx - 0.028, sy - 0.045, 0.056, 0.090)
     return c

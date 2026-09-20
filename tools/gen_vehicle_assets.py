@@ -113,28 +113,49 @@ def make_column():
 
 
 def make_shroud():
-    """The plastic cover over the column, with a moulded seam and screw bosses."""
-    w, h = 512, 256
-    size = (w * SS // 4, h * SS // 4)
-    w, h = size
+    """The plastic cover over the column: an upper and a lower moulding meeting
+    at a parting seam, with raised bosses where the screws go.
 
-    panel = shade(size, [(0, 112), (0.22, 88), (0.6, 64), (1, 40)])
-    panel = Image.blend(panel, noise(size, 20, 22), 0.16)
-    img = tint(panel, (74, 74, 78)).convert("RGBA")
+    Authored at 4:1, which is the shape it is drawn at on the board. The earlier
+    2:1 canvas was stretched to nearly twice its width in game, which turned the
+    seam into a hairline and flattened everything else.
+    """
+    w, h = 1024, 256
+    size = (w * SS // 2, h * SS // 2)
+    W, H = size
+
+    # Plastic: lighter along the top moulding, darker below the seam, with a
+    # soft sheen where the cover turns away from the windscreen.
+    panel = shade(size, [(0, 124), (0.16, 104), (0.44, 78), (0.50, 60), (0.56, 88), (0.82, 66), (1, 42)])
+    panel = Image.blend(panel, noise(size, 26, 14), 0.10)
+    img = tint(panel, (72, 72, 77)).convert("RGBA")
 
     d = ImageDraw.Draw(img, "RGBA")
 
-    # Moulded seam across the middle, and a lighter highlight above it.
-    d.line([(int(w * 0.04), int(h * 0.52)), (int(w * 0.96), int(h * 0.48))], fill=(24, 24, 26, 210), width=max(2, h // 90))
-    d.line([(int(w * 0.04), int(h * 0.50)), (int(w * 0.96), int(h * 0.46))], fill=(150, 150, 156, 90), width=max(1, h // 150))
+    # The parting line: a groove with the faintest lip above it. It stops short
+    # of the ends, because a moulding seam does, and a line running edge to edge
+    # reads as a wire lying on the cover.
+    seam = H * 0.50
+    d.line([(W * 0.07, seam), (W * 0.93, seam)], fill=(22, 22, 24, 210), width=max(3, int(H * 0.030)))
+    d.line([(W * 0.07, seam - H * 0.020), (W * 0.93, seam - H * 0.020)], fill=(150, 150, 156, 34), width=max(2, int(H * 0.007)))
 
-    # Rounded corners: cut the alpha back with a mask.
+    # Rounded corners, then an inner shadow so the cover reads as sitting proud
+    # of the dashboard rather than painted on it.
     mask = Image.new("L", size, 0)
-    ImageDraw.Draw(mask).rounded_rectangle([0, 0, w - 1, h - 1], radius=int(h * 0.16), fill=255)
+    ImageDraw.Draw(mask).rounded_rectangle([0, 0, W - 1, H - 1], radius=int(H * 0.22), fill=255)
     img.putalpha(mask)
 
-    img.alpha_composite(grime(size, 60, (30, 28, 26), (h * 0.02, h * 0.07), 90))
-    save(img, "shroud_ca")
+    inner = Image.new("RGBA", size, (0, 0, 0, 0))
+    ImageDraw.Draw(inner).rounded_rectangle(
+        [0, 0, W - 1, H - 1], radius=int(H * 0.22), outline=(0, 0, 0, 190), width=int(H * 0.06)
+    )
+    img.alpha_composite(inner.filter(ImageFilter.GaussianBlur(H * 0.03)))
+    img.putalpha(mask)
+
+    img.alpha_composite(grime(size, 70, (28, 26, 24), (H * 0.02, H * 0.08), 70))
+    img.putalpha(mask)
+
+    save(img.resize((w, h), Image.LANCZOS), "shroud_ca")
 
 
 def make_screw():

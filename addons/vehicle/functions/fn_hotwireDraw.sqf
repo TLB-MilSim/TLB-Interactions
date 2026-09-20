@@ -99,11 +99,11 @@ private _fnc_hotspot = {
 [QPATHTOF(data\column_co.paa), 0, 0, 1, 1] call _fnc_picture;
 
 if (_stage == HW_SHROUD) exitWith {
-    [QPATHTOF(data\shroud_ca.paa), 0.06, 0.10, 0.88, 0.78] call _fnc_picture;
+    [QPATHTOF(data\shroud_ca.paa), 0.06, 0.145, 0.88, 0.672] call _fnc_picture;
 
     // Screws around the shroud, in a fixed ring so a half-finished job reads the
     // same for the next player.
-    private _spots = [[0.13, 0.17], [0.85, 0.17], [0.13, 0.76], [0.85, 0.76], [0.49, 0.83], [0.49, 0.09]];
+    private _spots = [[0.13, 0.22], [0.85, 0.22], [0.13, 0.74], [0.85, 0.74], [0.49, 0.78], [0.49, 0.19]];
 
     for "_i" from 0 to _screws - 1 do {
         (_spots select _i) params ["_sx", "_sy"];
