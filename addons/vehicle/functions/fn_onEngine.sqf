@@ -20,7 +20,7 @@
 params ["_vehicle", "_engineOn"];
 
 if (!_engineOn || {!local _vehicle}) exitWith {};
-if (!call tlbi_vehicle_fnc_owns || {!tlbi_vehicle_ignitionLock}) exitWith {};
+if (!(call tlbi_vehicle_fnc_owns) || {!tlbi_vehicle_ignitionLock}) exitWith {};
 if ([_vehicle] call tlbi_vehicle_fnc_hotwired) exitWith {};
 
 private _needs = (locked _vehicle) in [2, 3]

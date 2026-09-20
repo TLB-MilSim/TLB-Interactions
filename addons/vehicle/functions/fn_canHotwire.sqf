@@ -19,7 +19,7 @@
 
 params ["_unit", "_vehicle"];
 
-if (!call tlbi_vehicle_fnc_owns) exitWith { false };
+if (!(call tlbi_vehicle_fnc_owns)) exitWith { false };
 if (!tlbi_vehicle_hotwire || {!tlbi_vehicle_ignitionLock}) exitWith { false };
 
 if (isNull _vehicle || {!alive _vehicle} || {objectParent _unit != _vehicle}) exitWith { false };

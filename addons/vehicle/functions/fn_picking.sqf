@@ -16,7 +16,7 @@
  * This mod picks vehicle locks <BOOL>
  */
 
-if (!call tlbi_vehicle_fnc_owns) exitWith { false };
+if (!(call tlbi_vehicle_fnc_owns)) exitWith { false };
 
 (missionNamespace getVariable ["tlbi_lockpick_vehicles", true])
     && {missionNamespace getVariable ["tlbi_lockpick_enabled", true]}

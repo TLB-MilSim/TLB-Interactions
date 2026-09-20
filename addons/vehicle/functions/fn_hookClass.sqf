@@ -37,3 +37,5 @@ tlbi_vehicle_actions params ["_pick", "_pickAce", "_hotwire"];
 
 [_class, 0, ["ACE_MainActions", "ACE_lockpickVehicle"]] call ace_interact_menu_fnc_removeActionFromClass;
 [_class, 1, ["ACE_lockpickVehicle"]] call ace_interact_menu_fnc_removeActionFromClass;
+
+diag_log text format ["[TLB Interactions] vehicle actions on %1", _class];

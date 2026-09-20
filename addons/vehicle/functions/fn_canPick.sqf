@@ -17,7 +17,7 @@
 
 params ["_unit", "_vehicle"];
 
-if (!call tlbi_vehicle_fnc_picking) exitWith { false };
+if (!(call tlbi_vehicle_fnc_picking)) exitWith { false };
 
 if (isNull _vehicle || {!alive _vehicle}) exitWith { false };
 if (!((locked _vehicle) in [2, 3])) exitWith { false };
