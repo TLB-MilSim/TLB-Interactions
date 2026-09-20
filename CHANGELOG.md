@@ -19,6 +19,9 @@
 - **Settings for all of it** under *TLB Interactions → Vehicles*, including what
   the player has to carry, how many shorts a harness survives and whether armour
   can be hotwired at all.
+- **Locked for players is left alone.** A vehicle set to *Locked for players*
+  cannot be picked or hotwired, and the ignition lock ignores it: that state is a
+  mission keeping a vehicle away from players, not a lock waiting for a key.
 - **TLB Keys handover.** With [TLB Keys](https://github.com/TLB-MilSim/TLB-Keys)
   loaded, *Pick vehicle locks* decides which mod owns vehicle picking and
   hotwiring: on, this mod does it all; off, TLB Keys keeps its own system. Who

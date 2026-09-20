@@ -32,9 +32,12 @@ decides how hard it is:
 | Service vehicles | Military | Five wires and an alarm feed |
 | Armour and aircraft | Reinforced | Six wires, unmarked, and an immobiliser |
 
-A vehicle nobody can pick stays that way: ACE's `ace_vehiclelock_lockpickStrength`
-of -1, and a vehicle a mission or Zeus marked as not pickable, are both left
-alone.
+A vehicle nobody can pick stays that way. Picking is only offered on a vehicle
+that is **Locked**, never on one set to **Locked for players**: that state is the
+mission holding a vehicle back from players rather than a lock without a key, so
+it is not picked, not hotwired and not touched by the ignition lock. ACE's
+`ace_vehiclelock_lockpickStrength` of -1, and a vehicle a mission or Zeus marked
+as not pickable, are left alone the same way.
 
 ## The ignition lock
 

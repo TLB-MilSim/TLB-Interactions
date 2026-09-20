@@ -39,7 +39,10 @@ if (!(call tlbi_vehicle_fnc_picking)) exitWith {
 };
 
 if (isNull _vehicle || {!alive _vehicle}) exitWith { "no vehicle" call _fnc_no };
-if (!((locked _vehicle) in [2, 3])) exitWith { format ["not locked (lock state %1)", locked _vehicle] call _fnc_no };
+// Lock state 3 is "locked for players": the mission is saying this vehicle is
+// not for them, which is not a lock to be picked.
+if ((locked _vehicle) == 3) exitWith { "locked for players by the mission" call _fnc_no };
+if ((locked _vehicle) != 2) exitWith { format ["not locked (lock state %1)", locked _vehicle] call _fnc_no };
 
 // Mission and Zeus intent, from whichever mod owns the vehicle.
 if (!(_vehicle getVariable ["tlb_keys_pickable", true])) exitWith { "TLB Keys says not pickable" call _fnc_no };

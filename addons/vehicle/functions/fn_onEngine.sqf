@@ -23,7 +23,9 @@ if (!_engineOn || {!local _vehicle}) exitWith {};
 if (!(call tlbi_vehicle_fnc_owns) || {!tlbi_vehicle_ignitionLock}) exitWith {};
 if ([_vehicle] call tlbi_vehicle_fnc_hotwired) exitWith {};
 
-private _needs = (locked _vehicle) in [2, 3]
+// Lock state 3 is the mission holding a vehicle back from players, not a lock
+// missing its key, so the ignition lock stays out of it.
+private _needs = (locked _vehicle) == 2
     || {_vehicle getVariable ["tlbi_vehicle_brokenInto", false]}
     || {(_vehicle getVariable ["tlb_keys_mode", -1]) != -1};
 

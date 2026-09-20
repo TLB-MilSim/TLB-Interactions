@@ -61,7 +61,11 @@ if (!([_unit] call tlbi_vehicle_fnc_hasTool)) exitWith {
     format ["no tool: carrying %1", _unit call ace_common_fnc_uniqueItems] call _fnc_no
 };
 
-private _needs = (locked _vehicle) in [2, 3]
+// Lock state 3, "locked for players", is the mission keeping this vehicle away
+// from players rather than a lock without a key, so it is left alone.
+if ((locked _vehicle) == 3) exitWith { "locked for players by the mission" call _fnc_no };
+
+private _needs = (locked _vehicle) == 2
     || {_vehicle getVariable ["tlbi_vehicle_brokenInto", false]}
     || {(_vehicle getVariable ["tlb_keys_mode", -1]) != -1};
 
