@@ -156,6 +156,9 @@ or expect to leave the clip in the lock.
 
 ## Doors
 
+Vehicle locks are picked the same way, on the same board. See
+[Vehicles](vehicles.md) for those, and for hotwiring.
+
 **Door classes** decide how hard a lock is:
 
 | Door | Pins | Windows | Buildings (default lists) |

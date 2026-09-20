@@ -4,6 +4,26 @@
 
 ## Unreleased
 
+### Added
+
+- **Vehicle locks on the board.** A locked vehicle is picked with a lock pick kit
+  or a paperclip, on the same board as a door, and ACE's own Lockpick action is
+  replaced. Civilian, service and armoured vehicles get harder locks in that
+  order.
+- **Hotwiring.** A vehicle that was locked does not start without its key. In the
+  driver's seat, **Hotwire** opens a board under the steering column: unscrew the
+  shroud, strip the wires, find the battery feed with a voltmeter and the coil and
+  solenoid with a continuity meter, twist the right pair, shear the steering lock
+  and crank it. The wrong pair blows a fuse, the alarm feed sounds the horn, and
+  too many shorts finish the harness for good. See [Vehicles](docs/vehicles.md).
+- **Settings for all of it** under *TLB Interactions → Vehicles*, including what
+  the player has to carry, how many shorts a harness survives and whether armour
+  can be hotwired at all.
+- **TLB Keys handover.** With [TLB Keys](https://github.com/TLB-MilSim/TLB-Keys)
+  loaded, *Pick vehicle locks* decides which mod owns vehicle picking and
+  hotwiring: on, this mod does it all; off, TLB Keys keeps its own system. Who
+  holds a key is always TLB Keys' answer.
+
 ### Changed
 
 - **Cheaper door lock scanning.** Random door locking used to search 100 m around

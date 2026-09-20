@@ -14,6 +14,7 @@
   <a href="https://github.com/TLB-MilSim/TLB-Interactions/releases/latest"><strong>Download</strong></a> ·
   <a href="docs/defusal.md">Defusal guide</a> ·
   <a href="docs/lockpicking.md">Lockpicking &amp; doors</a> ·
+  <a href="docs/vehicles.md">Vehicles</a> ·
   <a href="docs/modules.md">Modules</a> ·
   <a href="docs/settings.md">All settings</a> ·
   <a href="CHANGELOG.md">Changelog</a>
@@ -51,6 +52,12 @@ board showing the device in front of you, and what you do depends on what it is:
 It replaces ACE's defusal rather than adding new explosives, so it works on
 **every** mine and explosive ACE can already defuse: vanilla, ACE, RHS, CUP,
 mission-placed or Zeus-placed.
+
+**Vehicles.** A locked vehicle is picked on the same board, and getting in is
+only half of it: a vehicle that was locked does not start without its key. Under
+the steering column there is a shroud to unscrew and a loom to read with a meter,
+and the wrong pair twisted together blows a fuse or sets the horn off. Full
+walkthrough: [Vehicles](docs/vehicles.md).
 
 **Lockpicking.** Locked doors are picked on a board with a **lock pick kit** or a
 **paperclip**. Each lock rolls one of three techniques (pin tumbler, rake or
@@ -109,6 +116,7 @@ can be rebound.
 | [CBA_A3](https://steamcommunity.com/workshop/filedetails/?id=450814997) | required |
 | [ACE3](https://steamcommunity.com/workshop/filedetails/?id=463939057) | required |
 | [Breach - Rewrite](https://steamcommunity.com/sharedfiles/filedetails/?id=3283645995) (tsp_breach) | optional. Its door actions, locking and items are used when loaded |
+| [TLB Keys](https://github.com/TLB-MilSim/TLB-Keys) | optional. Its vehicle keys are used, and it hands vehicle picking and hotwiring to this mod |
 | [Zeus Enhanced](https://steamcommunity.com/workshop/filedetails/?id=1779063631) | optional. Needed for the Zeus modules and context menu entries |
 
 ## Installation
@@ -149,6 +157,7 @@ setting, its default and its range: [All settings](docs/settings.md).
 | --- | --- |
 | [Defusal guide](docs/defusal.md) | Players: every stage of the IED, mine and tripwire procedures, what the readings mean, what kills you. |
 | [Lockpicking & doors](docs/lockpicking.md) | Players: tools, the three techniques, door classes, the door menu without tsp_breach. |
+| [Vehicles](docs/vehicles.md) | Players: picking vehicle locks, the ignition lock, the hotwire board and what shorts out. |
 | [Modules](docs/modules.md) | Mission makers: Eden modules for an area and Zeus modules for one explosive or door. |
 | [All settings](docs/settings.md) | Mission makers and server admins: every CBA setting and keybind with its default, range and effect, and the difficulty tables. |
 | [Changelog](CHANGELOG.md) | Everyone: what changed in each version. |

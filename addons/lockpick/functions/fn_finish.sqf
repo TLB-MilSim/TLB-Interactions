@@ -17,9 +17,9 @@ _state set ["done", true];
 
 // The technique stays on the door until it is picked, so the same lock does not
 // re-roll on every attempt. It is open now, so clear it.
-private _house = _state get "house";
+private _owner = _state getOrDefault ["owner", _state get "house"];
 {
-    _house setVariable [format ["tlbi_lockpick_tech_%1_%2", _state get "door", _x], nil, true];
+    _owner setVariable [format ["tlbi_lockpick_tech_%1_%2", _state get "door", _x], nil, true];
 } forEach [TOOL_KIT, TOOL_CLIP];
 
 (_state get "unlockArgs") call (_state get "unlock");
