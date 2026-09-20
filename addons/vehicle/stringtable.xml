@@ -110,6 +110,12 @@
             <Key ID="STR_tlbi_vehicle_read_lock">
                 <English>STEERING LOCK   %1%</English>
             </Key>
+            <Key ID="STR_tlbi_vehicle_note_live">
+                <English>12 V</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_note_dead">
+                <English>0 V</English>
+            </Key>
             <Key ID="STR_tlbi_vehicle_cont_none">
                 <English>NO PATH</English>
             </Key>
@@ -125,16 +131,16 @@
         </Container>
         <Container name="Hints">
             <Key ID="STR_tlbi_vehicle_help_shroud">
-                <English>Click a screw to take it out. %1 left in the shroud.</English>
+                <English>Click each screw to take it out, then the shroud comes off. %1 left.</English>
             </Key>
             <Key ID="STR_tlbi_vehicle_help_wires">
-                <English>Pick a wire (%1 / %2 or click it), strip it, then read it: only the battery feed is live, and the meter finds the coil and the solenoid.</English>
+                <English>Goal: twist the live feed onto the one that runs to the coil. Pick a wire (%1 / %2 or click it), Strip it, then Volts (only the battery feed is live) and Ohms (coil is the ignition, solenoid is the starter).</English>
             </Key>
             <Key ID="STR_tlbi_vehicle_help_twist">
-                <English>The clip is on wire %1. Strip another wire and twist to join them, or press Twist again to take the clip off.</English>
+                <English>The clip is on wire %1. Pick the other wire, strip it, and press Twist to join them. Press Twist on wire %1 again to take the clip off.</English>
             </Key>
             <Key ID="STR_tlbi_vehicle_help_crank">
-                <English>Hold %1 to crank, and let go the moment it catches.</English>
+                <English>The dash is live. Hold %1 to crank, and let go the moment the readout says it catches.</English>
             </Key>
             <Key ID="STR_tlbi_vehicle_help_steering">
                 <English>Hold %1 to force the steering lock.</English>

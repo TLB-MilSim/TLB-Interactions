@@ -151,6 +151,27 @@ private _fnc_rowY = { _top + (_this + 0.5) * _rowH };
         [QPATHTOF(data\strip_ca.paa), _stripX - 0.024, _y - _h * 0.13, 0.048, _h * 0.26] call _fnc_picture;
     };
 
+    // What the meter has said about this wire, written on the loom, so the
+    // board carries the job's notes instead of the player's memory.
+    private _note = "";
+
+    if (_volts >= 0) then { _note = [localize "STR_tlbi_vehicle_note_dead", localize "STR_tlbi_vehicle_note_live"] select (_volts > 0) };
+
+    if (_cont >= 0) then {
+        private _where = localize ([
+            "STR_tlbi_vehicle_cont_none",
+            "STR_tlbi_vehicle_cont_coil",
+            "STR_tlbi_vehicle_cont_solenoid",
+            "STR_tlbi_vehicle_cont_lamps"
+        ] select _cont);
+
+        _note = [_where, format ["%1  %2", _note, _where]] select (_note != "");
+    };
+
+    if (_note != "") then {
+        [_note, 0.62, _y - _rowH * 0.34, 0.24, _rowH * 0.68, [0.80, 0.66, 0.30, 1]] call _fnc_label;
+    };
+
     // The tag: its number, brighter while the crocodile clip is on it.
     private _tagTint = [[0.62, 0.60, 0.53, 1], [0.86, 0.80, 0.42, 1]] select (_forEachIndex == _clip);
     [QSHARED(tag_ca.paa), 0.875, _y - _rowH * 0.36, 0.105, _rowH * 0.72, _tagTint] call _fnc_picture;
