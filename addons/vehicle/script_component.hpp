@@ -77,6 +77,13 @@
 #define CONT_LAMPS          3
 
 // --- Tools ------------------------------------------------------------------
+// The lockpicking board's two tools, passed straight through to it. These must
+// match the numbers in the lockpicking addon's script_component.hpp: each PBO is
+// preprocessed on its own, so a macro from there is just an undefined variable
+// here.
+#define TOOL_KIT            0
+#define TOOL_CLIP           1
+
 #define HWTOOL_NONE         0
 #define HWTOOL_ANY          1   // a lock pick kit, a paperclip or a toolkit
 #define HWTOOL_KIT          2   // a toolkit only
