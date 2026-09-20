@@ -5,7 +5,9 @@
 // ACE's own Lockpick action is swapped for ours the same way the defusal action
 // is: added first, so the engine compiles the class's config menu, then ACE's
 // entry is removed. Ours lists one entry per tool the player carries and opens
-// the lockpicking board.
+// the lockpicking board. The swap runs per vehicle class as each one first turns
+// up in the mission (fn_hookClass), because that is when ACE builds its menu
+// from config.
 //
 // When this mod is not the one in charge, which is TLB Keys loaded with "Pick
 // vehicle locks" off, the replacement falls back to ACE's own progress bar
@@ -79,17 +81,15 @@ private _hotwire = [
     {}, [], [0, 0, 0], 4
 ] call ace_interact_menu_fnc_createAction;
 
+tlbi_vehicle_actions = [_pick, _pickAce, _hotwire];
+
+// ACE builds a class's menu the first time an object of it exists, so the swap
+// runs then too, once per class. Retroactive, so vehicles already in the mission
+// are covered.
 {
-    private _class = _x;
-
-    [_class, 0, ["ACE_MainActions"], _pick] call ace_interact_menu_fnc_addActionToClass;
-    [_class, 0, ["ACE_MainActions"], _pickAce] call ace_interact_menu_fnc_addActionToClass;
-    [_class, 1, [], _hotwire] call ace_interact_menu_fnc_addActionToClass;
-
-    // Add before remove: addActionToClass is what compiles the class's config
-    // menu, so ACE's entry has to exist before it can be taken out.
-    [_class, 0, ["ACE_MainActions", "ACE_lockpickVehicle"]] call ace_interact_menu_fnc_removeActionFromClass;
-    [_class, 1, ["ACE_lockpickVehicle"]] call ace_interact_menu_fnc_removeActionFromClass;
+    [_x, "InitPost", {
+        [typeOf (_this select 0)] call tlbi_vehicle_fnc_hookClass;
+    }, true, ["StaticWeapon"], true] call CBA_fnc_addClassEventHandler;
 } forEach _classes;
 
-diag_log text format ["[TLB Interactions] vehicle actions installed on %1 classes", count _classes];
+diag_log text format ["[TLB Interactions] vehicle actions hooked on %1 base classes", count _classes];

@@ -39,6 +39,7 @@ class CfgFunctions {
             class canPick {};
             class harness {};
             class hasTool {};
+            class hookClass {};
             class hotwireAction {};
             class hotwireDraw {};
             class hotwireFinish {};
