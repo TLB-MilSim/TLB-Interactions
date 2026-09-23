@@ -17,12 +17,18 @@
  * 4: Item class being used <STRING>
  * 5: Unlock code <CODE> - called with the arguments below on success
  * 6: Unlock arguments <ARRAY>
+ * 7: Lock class, or -1 to read it from the building <NUMBER> (default: -1)
+ * 8: Object the rolled lock belongs to <OBJECT> (default: the building)
  *
  * Return Value:
  * Board opened <BOOL>
  */
 
-params ["_unit", "_house", "_door", "_tool", "_item", "_unlock", "_unlockArgs"];
+params ["_unit", "_house", "_door", "_tool", "_item", "_unlock", "_unlockArgs", ["_classOverride", -1], ["_owner", objNull]];
+
+// A vehicle lock is picked on a stand-in building at the player's feet, so the
+// class and the object that remembers the rolled technique are passed in.
+if (isNull _owner) then { _owner = _house };
 
 if (!isNull (uiNamespace getVariable ["tlbi_lockpick_display", displayNull])) exitWith { false };
 if (!alive _unit || {isNull _house} || {_item == ""}) exitWith { false };
@@ -46,7 +52,8 @@ if ((["Pickable"] call _fnc_module) == 0) exitWith {
 };
 
 private _classModule = ["DoorClass"] call _fnc_module;
-private _class = [[_house, _door] call tlbi_lockpick_fnc_doorClass, _classModule min DOOR_REINFORCED] select (_classModule >= 0);
+private _class = [[_house, _door] call tlbi_lockpick_fnc_doorClass, _classOverride] select (_classOverride >= 0);
+if (_classModule >= 0) then { _class = _classModule min DOOR_REINFORCED };
 
 if (_class == DOOR_GLASS) exitWith {
     [localize "STR_tlbi_lockpick_msg_glass"] call ace_common_fnc_displayTextStructured;
@@ -54,7 +61,7 @@ if (_class == DOOR_GLASS) exitWith {
 };
 
 private _techVar = format ["tlbi_lockpick_tech_%1_%2", _door, _tool];
-private _tech = _house getVariable [_techVar, -1];
+private _tech = _owner getVariable [_techVar, -1];
 
 private _toolSuffix = ["Kit", "Clip"] select _tool;
 
@@ -70,7 +77,7 @@ if (_tech < 0) then {
     } else {
         selectRandomWeighted [TECH_PINS, _wPins, TECH_RAKE, _wRake, TECH_DIAL, _wDial]
     };
-    _house setVariable [_techVar, _tech, true];
+    _owner setVariable [_techVar, _tech, true];
 };
 
 private _techModule = ["Technique"] call _fnc_module;
@@ -143,7 +150,7 @@ for "_i" from 0 to _n - 1 do {
 };
 
 private _state = createHashMapFromArray [
-    ["unit", _unit], ["house", _house], ["door", _door], ["tool", _tool], ["item", _item],
+    ["unit", _unit], ["house", _house], ["owner", _owner], ["door", _door], ["tool", _tool], ["item", _item],
     ["tech", _tech], ["class", _class], ["unlock", _unlock], ["unlockArgs", _unlockArgs], ["pos", _pos],
     ["n", _n], ["keyLen", _keyLen], ["h", _heights], ["set", _set], ["order", _order call BIS_fnc_arrayShuffle],
     ["sel", 0], ["pickX", CUT_PIN_X0], ["window", 0.24], ["lift", 0.55], ["glint", false],

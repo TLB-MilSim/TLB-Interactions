@@ -17,6 +17,7 @@ what happens under the hood.
 - [Lockpicking](#lockpicking)
 - [tsp_breach takeover](#tsp_breach-takeover)
 - [The built-in door system](#the-built-in-door-system)
+- [Vehicles and hotwiring](#vehicles-and-hotwiring)
 - [Stand-in items](#stand-in-items)
 - [Drawing the boards](#drawing-the-boards)
 - [Modules and keybinds](#modules-and-keybinds)
@@ -32,9 +33,10 @@ what happens under the hood.
 | `tlbi_defusal` | `tlbi\addons\defusal` | The defusal replacement: IED, mine and tripwire procedures, the shared board dialog and control styles, defusal textures and settings. |
 | `tlbi_lockpick` | `tlbi\addons\lockpick` | The lockpicking board and its three techniques, the tsp_breach takeover, the built-in door system and lockpicking settings. Reuses the defusal board's control styles and chrome textures. |
 | `tlbi_lockpick_items` | `tlbi\addons\lockpick_items` | The stand-in Lock Pick Kit and Paperclip. Its config is shipped unbinarised on purpose (see [Stand-in items](#stand-in-items)). |
+| `tlbi_vehicle` | `tlbi\addons\vehicle` | Vehicle locks and hotwiring: the ACE lockpick takeover, the hotwire board and its textures, the ignition lock, and the handover to TLB Keys. |
 
 All functions are plain SQF files registered through `CfgFunctions`
-(`tlbi_defusal_fnc_*`, `tlbi_lockpick_fnc_*`).
+(`tlbi_defusal_fnc_*`, `tlbi_lockpick_fnc_*`, `tlbi_vehicle_fnc_*`).
 
 ## Initialisation
 
@@ -278,6 +280,56 @@ so the rolling has to happen before a door is used. It runs in two places:
   gate, so a player cannot stop inside a ring of buildings the last query missed,
   and the 30 second fallback picks up buildings created during the mission by Zeus
   or a script.
+
+## Vehicles and hotwiring
+
+**Taking over ACE's lockpick** (`fn_postInit`). `ace_vehiclelock` declares its
+lock, unlock and lockpick actions in `CfgVehicles` on `Car`, `Tank`,
+`Motorcycle`, `Helicopter`, `Plane` and `Ship_F`. Its `fn_lockpick` is
+`compileFinal` like the rest of ACE, so the action is swapped rather than the
+function: ours is added under `ACE_MainActions` first, because that is what
+compiles the class's config menu, and ACE's `ACE_lockpickVehicle` is removed
+after. Our entry lists one child per tool the player carries and opens the
+lockpicking board, through `fn_start` with the vehicle's lock class and the
+vehicle itself as the object that remembers the rolled technique. A second entry
+runs ACE's own progress bar and only appears when this mod is not the one in
+charge, so the swap never leaves a vehicle with no way to pick it at all.
+
+Because a vehicle's centre can be further away than the board's four metre
+leash, the board is given an invisible local `Land_HelipadEmpty_F` at the
+player's feet as its stand-in building, which is deleted when the board closes.
+That is the same trick TLB Keys uses to call this board.
+
+**The ignition lock** (`fn_onEngine`, on the `Engine` event through
+`CBA_fnc_addClassEventHandler`). A vehicle that is locked, that was broken into,
+or that has keys in TLB Keys, shuts its engine off again for a player with no
+key, wherever the vehicle is local. `fn_hasAccess` is the one question this addon
+asks somebody else: TLB Keys answers it when loaded, ACE's vehicle keys when it
+is not.
+
+**The harness** (`fn_harness`). Built the first time anyone opens the column and
+stored on the vehicle with a public `setVariable`, so the screws that are out,
+the wires that are stripped, the readings taken and the twist are the same for
+everyone and survive closing the board. Three roles always exist (battery,
+ignition, starter); a service loom adds an alarm feed, armour adds an immobiliser
+and drops the colours, which repeat in pairs otherwise, exactly like the IED
+loom.
+
+**The board** (`fn_hotwireStart`, `fn_hotwireDraw`, `fn_hotwireTick`). Its own
+dialog with the defusal board's chrome and control styles. The stages are
+shroud, loom, steering lock and ignition; timed actions run through
+`fn_hotwireRun`, which is the defusal board's `fn_runAction` with this board's
+control ids. Only the electrics can go wrong: `fn_hotwireJoin` does nothing at
+all unless a permanently live feed is part of the pair, and `fn_short` blows a
+fuse, sounds the horn when the alarm feed is in it, and past the allowed number
+of shorts replaces the harness with a fresh one that nobody can touch until the
+replacement time is up.
+
+**Who owns vehicles** (`fn_owns`). With TLB Keys loaded, the lockpicking setting
+`tlbi_lockpick_vehicles` decides: on, this mod owns picking and hotwiring
+completely and TLB Keys stands down; off, TLB Keys keeps its own system and
+nothing here runs. What one vehicle allows, such as a lock marked unpickable,
+still comes from whoever owns that vehicle.
 
 ## Stand-in items
 

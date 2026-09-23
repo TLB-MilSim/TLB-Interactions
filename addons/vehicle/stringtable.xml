@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="tlbi">
+    <Package name="vehicle">
+        <Container name="Actions">
+            <Key ID="STR_tlbi_vehicle_action_pick">
+                <English>Pick lock</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_action_pickWith">
+                <English>Pick with %1</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_action_hotwire">
+                <English>Hotwire</English>
+            </Key>
+        </Container>
+        <Container name="Board">
+            <Key ID="STR_tlbi_vehicle_btn_back">
+                <English>Back off</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_hotwire_title">
+                <English>UNDER THE COLUMN - HOTWIRE IT</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_hotwire_subtitle">
+                <English>%1  ·  %2 loom  ·  %3 wires</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_class_civil">
+                <English>Civilian</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_class_military">
+                <English>Service</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_class_armoured">
+                <English>Unmarked</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_stage_shroud">
+                <English>SHROUD</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_stage_wires">
+                <English>LOOM</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_stage_steering">
+                <English>STEERING</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_stage_crank">
+                <English>IGNITION</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_stage_running">
+                <English>RUNNING</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_btn_strip">
+                <English>Strip</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_btn_twist">
+                <English>Twist</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_btn_crank">
+                <English>Crank</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_btn_force">
+                <English>Force</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_btn_volts">
+                <English>Volts</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_btn_cont">
+                <English>Ohms</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_btn_cut">
+                <English>Cut</English>
+            </Key>
+        </Container>
+        <Container name="Actions in progress">
+            <Key ID="STR_tlbi_vehicle_act_unscrew">
+                <English>Unscrewing...</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_act_strip">
+                <English>Stripping the sheath...</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_act_twist">
+                <English>Twisting them together...</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_act_volts">
+                <English>Reading voltage...</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_act_cont">
+                <English>Reading continuity...</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_act_cut">
+                <English>Cutting...</English>
+            </Key>
+        </Container>
+        <Container name="Readout">
+            <Key ID="STR_tlbi_vehicle_read_volts">
+                <English>W%1   %2 V</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_read_cont">
+                <English>W%1   %2</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_read_crank">
+                <English>TURNING OVER   %1%</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_read_catch">
+                <English>IT CATCHES - LET GO</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_read_idle">
+                <English>DEAD</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_read_cool">
+                <English>STARTER HOT   %1 s</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_read_lock">
+                <English>STEERING LOCK   %1%</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_note_live">
+                <English>12 V</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_note_dead">
+                <English>0 V</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_cont_none">
+                <English>NO PATH</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_cont_coil">
+                <English>COIL</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_cont_solenoid">
+                <English>SOLENOID</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_cont_lamps">
+                <English>LAMPS</English>
+            </Key>
+        </Container>
+        <Container name="Hints">
+            <Key ID="STR_tlbi_vehicle_help_shroud">
+                <English>Click each screw to take it out, then the shroud comes off. %1 left.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_help_wires">
+                <English>Goal: twist the live feed onto the one that runs to the coil. Pick a wire (%1 / %2 or click it), Strip it, then Volts (only the battery feed is live) and Ohms (coil is the ignition, solenoid is the starter).</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_help_twist">
+                <English>The clip is on wire %1. Pick the other wire, strip it, and press Twist to join them. Press Twist on wire %1 again to take the clip off.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_help_crank">
+                <English>The dash is live. Hold %1 to crank, and let go the moment the readout says it catches.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_help_steering">
+                <English>Hold %1 to force the steering lock.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_help_running">
+                <English>It runs.</English>
+            </Key>
+        </Container>
+        <Container name="Messages">
+            <Key ID="STR_tlbi_vehicle_msg_shroudOff">
+                <English>The shroud comes off. The ignition barrel and its loom are in front of you.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_sheathed">
+                <English>Nothing to touch there: strip the sheath first.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_nothing">
+                <English>Nothing happens. Neither of those is carrying anything.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_turnsOver">
+                <English>It turns over and dies. That is the starter, not the ignition.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_dashLive">
+                <English>The dash comes alive. Find the starter feed and crank it.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_immobiliser">
+                <English>The dash stays dead. Something is cutting the feed to the coil.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_short">
+                <English>A flash and a bang.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_alarm">
+                <English>The horn starts blaring.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_fuse">
+                <English>A fuse goes, and the loom is dead for a moment. %1 of %2.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_fuseDead">
+                <English>Nothing in the loom yet: wait for the fuse.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_fried">
+                <English>The harness is finished. This one is going nowhere until it is replaced.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_grind">
+                <English>The starter grinds against a running engine. Let it cool.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_sheared">
+                <English>The steering lock shears.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_running">
+                <English>It runs.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_cutAlarm">
+                <English>That was the alarm feed. It cannot sound now.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_cutImmobiliser">
+                <English>That was the immobiliser. The coil can be fed now.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_cutDecoy">
+                <English>Cut, and nothing to show for it.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_cutFeed">
+                <English>That was one of the three that matter.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_picked">
+                <English>%1 unlocked.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_pickedIgnition">
+                <English>%1 unlocked. It will not start without its key: get in and hotwire it.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_hotwired">
+                <English>%1 hotwired. It runs until someone with a key locks it again.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_msg_ignition">
+                <English>%1 will not start without its key.</English>
+            </Key>
+        </Container>
+        <Container name="Settings">
+            <Key ID="STR_tlbi_vehicle_settings_sub">
+                <English>Vehicles</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_enabled">
+                <English>Vehicle locks and hotwiring</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_enabled_desc">
+                <English>Picking vehicle locks on the board, hotwiring and the ignition lock. Off leaves vehicles to ACE, or to TLB Keys when that is loaded.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_hotwire">
+                <English>Hotwiring</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_hotwire_desc">
+                <English>A driver without the key can hotwire the vehicle they are sitting in, on the hotwire board.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_ignitionLock">
+                <English>Ignition lock</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_ignitionLock_desc">
+                <English>A vehicle that was locked, or broken into, does not start until it is hotwired. Off: picking the lock is enough to drive it away, and there is nothing to hotwire.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_steering">
+                <English>Steering lock</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_steering_desc">
+                <English>The steering lock has to be forced before the engine is cranked.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_armoured">
+                <English>Armour can be hotwired</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_armoured_desc">
+                <English>Armour and aircraft can be hotwired, with an immobiliser to find and cut first. Off: they cannot be hotwired at all.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_alarm">
+                <English>Alarm feed</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_alarm_desc">
+                <English>Service and armoured looms carry an alarm feed that sounds the horn if it is shorted. It reads exactly like a lamp feed on the meter.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_tools">
+                <English>Hotwiring needs</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_tools_desc">
+                <English>What the player has to carry to hotwire: nothing, any lock pick kit, paperclip or toolkit, or a toolkit only.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_tools_none">
+                <English>Nothing</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_tools_any">
+                <English>Kit, paperclip or toolkit</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_tools_kit">
+                <English>Toolkit</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_shorts">
+                <English>Shorts allowed</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_shorts_desc">
+                <English>Shorts a harness survives. The next one finishes it, and cutting one of the three wires that matter finishes it on its own.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_friedTime">
+                <English>Replacement time (s)</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_friedTime_desc">
+                <English>How long a finished harness takes to be replaced before anyone can work on that vehicle again. The replacement has new wires in a new order.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_actionTime">
+                <English>Working time (s)</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_actionTime_desc">
+                <English>How long one screw takes. Stripping, twisting, reading and cutting are fractions of it.</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_crankTime">
+                <English>Cranking time (s)</English>
+            </Key>
+            <Key ID="STR_tlbi_vehicle_set_crankTime_desc">
+                <English>How long the engine turns over before it catches.</English>
+            </Key>
+        </Container>
+    </Package>
+</Project>

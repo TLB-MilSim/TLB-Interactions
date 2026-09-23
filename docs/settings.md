@@ -20,6 +20,7 @@ settings files.
 - [Lockpicking - Pin tumbler / Rake / Sweet spot](#lockpicking---pin-tumbler--rake--sweet-spot)
 - [Lockpicking levels](#lockpicking-levels)
 - [Lockpicking - Doors without tsp_breach](#lockpicking---doors-without-tsp_breach)
+- [Vehicles](#vehicles)
 - [Keybinds](#keybinds)
 - [Example settings file](#example-settings-file)
 
@@ -199,6 +200,39 @@ system and settings apply and these are ignored.
 
 ---
 
+## Vehicles
+
+Picking vehicle locks and hotwiring. With [TLB Keys](https://github.com/TLB-MilSim/TLB-Keys)
+loaded, these only apply while *Pick vehicle locks* (under Lockpicking) is on:
+that switch hands vehicles to this mod completely. Turn it off and TLB Keys
+decides picking and hotwiring with its own settings instead. What one vehicle
+allows is never overridden: a vehicle marked as not pickable, or with ACE's
+`ace_vehiclelock_lockpickStrength` set to -1, is left alone either way.
+
+| Setting | Variable | Default | Range | Effect |
+| --- | --- | --- | --- | --- |
+| Vehicle locks and hotwiring | `tlbi_vehicle_enabled` | on | on / off | The whole addon. Off leaves vehicles to ACE, or to TLB Keys when that is loaded. |
+| Hotwiring | `tlbi_vehicle_hotwire` | on | on / off | A driver without the key can hotwire the vehicle they are sitting in, on the hotwire board. |
+| Ignition lock | `tlbi_vehicle_ignitionLock` | on | on / off | A vehicle that was locked, or broken into, does not start until it is hotwired. Off: picking the lock is enough to drive away, and there is nothing to hotwire. |
+| Steering lock | `tlbi_vehicle_steering` | on | on / off | The steering lock has to be forced before the engine is cranked. |
+| Armour can be hotwired | `tlbi_vehicle_armoured` | on | on / off | Armour and aircraft can be hotwired, with an immobiliser to find and cut first. Off: they cannot be hotwired at all. |
+| Alarm feed | `tlbi_vehicle_alarm` | on | on / off | Service and armoured looms carry an alarm feed. Short it and the horn sounds, and it reads exactly like a lamp feed on the meter. |
+| Hotwiring needs | `tlbi_vehicle_tools` | Kit, paperclip or toolkit | Nothing / Kit, paperclip or toolkit / Toolkit | What the player has to be carrying to hotwire. |
+| Shorts allowed | `tlbi_vehicle_shorts` | 2 | 0 to 5 | Shorts a harness survives. The next one finishes it, and cutting one of the three wires that matter finishes it on its own. |
+| Replacement time (s) | `tlbi_vehicle_friedTime` | 300 | 0 to 900 | How long a finished harness takes to be replaced before anyone can try that vehicle again. The replacement has new wires in a new order. |
+| Working time (s) | `tlbi_vehicle_actionTime` | 2.5 | 0.5 to 10 | How long one screw takes. Stripping, twisting, reading and cutting are fractions of it. |
+| Cranking time (s) | `tlbi_vehicle_crankTime` | 1.6 | 0.4 to 5 | How long the engine turns over before it catches. |
+
+Per vehicle, from a script or an Eden init line:
+
+| Variable | Effect |
+| --- | --- |
+| `vehicle setVariable ["tlbi_vehicle_pickable", false, true]` | This lock cannot be picked. |
+| `vehicle setVariable ["tlbi_vehicle_hotwirable", false, true]` | This vehicle cannot be hotwired. |
+| `vehicle setVariable ["tlbi_vehicle_hotwired", true, true]` | It runs without its key, as though it had been hotwired. |
+
+---
+
 ## Keybinds
 
 Under **Options → Controls → Configure Addons → TLB Interactions**. Keybinds are
@@ -211,6 +245,8 @@ per player, not server settings. On-screen hints show the key you have bound.
 | Lockpicking: next pin / pick right | D | Choosing a pin, or swinging the pick right |
 | Lockpicking: lift, tension or turn (hold) | Space | Lifting a pin, holding tension, turning the plug |
 | Lockpicking: rake | R | A rake stroke |
+
+The hotwire board uses the same keys: left and right pick a wire, and the lift key holds the starter and forces the steering lock.
 
 <kbd>Esc</kbd> always closes a board, and the board buttons can be held instead of the keys.
 
