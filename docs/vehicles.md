@@ -57,13 +57,14 @@ In the driver's seat, open the ACE self-interaction menu and choose **Hotwire**.
 You need something to work with: any lock pick kit, a paperclip or a toolkit by
 default, and the setting can ask for a toolkit only, or for nothing at all.
 
-<img src="images/hotwire.jpg" alt="The hotwire board: the ignition barrel, its loom, and each wire's meter readings" width="820">
-
 The board runs in four stages.
 
 **1. The shroud.** The plastic cover over the column is held on by three to five
 screws. Click each one to take it out. With the last one gone the cover comes
 off and the ignition barrel is in front of you.
+
+<img src="images/hotwire-shroud.jpg" alt="The column shroud with its screws still in" width="820">
+<img src="images/hotwire-loom.jpg" alt="The shroud off, showing the ignition barrel and its loom" width="820">
 
 **2. The loom.** Wires run from the barrel's connector out to the right, numbered
 by their tags. Pick one with the left and right keys or by clicking it, then:
@@ -76,14 +77,22 @@ by their tags. Pick one with the left and right keys or by clicking it, then:
 | **Ohms** | Where does it go? The coil, the solenoid, the lamps, or nowhere. |
 | **Cut** | Cuts the selected wire. |
 
+Each wire carries what the meter said about it, so the board keeps the notes
+rather than you.
+
+<img src="images/hotwire-strip.jpg" alt="Two wires stripped and read, a third still sheathed" width="820">
+<img src="images/hotwire.jpg" alt="Every wire read: the battery feed and the coil feed found" width="820">
+
 **3. The steering lock.** Once the dash is live, hold the lift key to force the
 steering lock until it shears. Let go and it takes back what it gained.
+
+<img src="images/hotwire-steering.jpg" alt="The pair twisted together and the steering lock being forced" width="820">
 
 **4. The ignition.** Hold the lift key to crank. The engine turns over, and the
 moment the readout says it catches, let go. Keep holding and the starter grinds
 against a running engine, which costs you a cool-down.
 
-<img src="images/hotwire-crank.jpg" alt="The battery feed twisted onto the ignition feed, and the engine catching" width="820">
+<img src="images/hotwire-crank.jpg" alt="The engine catching, which is the moment to let go" width="820">
 
 ## The loom
 

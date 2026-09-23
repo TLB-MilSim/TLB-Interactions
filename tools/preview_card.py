@@ -105,48 +105,122 @@ def card(inner, title, subtitle, readout, stage, status, plates):
     return img.convert("RGB")
 
 
-def hotwire_card():
-    """The loom part way through a job: the battery feed found and clipped, the
-    coil feed found and selected, the alarm feed cut, one still sheathed."""
-    inner = hw.loom(
-        [(0, True, False, "12 V"), (8, True, False, "0 V  LAMPS"), (3, True, False, "0 V  COIL"),
-         (3, False, False, ""), (6, True, True, "0 V  LAMPS")],
-        sel=2, clip=0, joined=(),
+# One job, told in order. The same five wires throughout, so the set reads as one
+# vehicle being worked on rather than five unrelated pictures.
+#   1 red     battery feed
+#   2 black   lamps
+#   3 green   coil, the ignition feed
+#   4 green   solenoid, the starter feed
+#   5 orange  lamps, and on a service loom this is the alarm
+WIRES = [0, 8, 3, 3, 6]
+
+TITLE = "UNDER THE COLUMN - HOTWIRE IT"
+SUBTITLE = "Hilux (Covered)  ·  Service loom  ·  5 wires"
+
+LOOM_PLATES = ["Strip", "", "Volts", "Ohms", "Cut", "Back off"]
+
+
+def wires(states):
+    """states: [(stripped, cut, note), ...] in wire order."""
+    return [(WIRES[i], st, cut, note) for i, (st, cut, note) in enumerate(states)]
+
+
+def shroud_card():
+    """Nothing is reachable until the cover is off."""
+    return card(
+        hw.shroud(4), TITLE, SUBTITLE, "", "SHROUD",
+        "Click each screw to take it out, then the shroud comes off. 4 left.",
+        ["", "", "", "", "", "Back off"],
     )
 
+
+def loom_card():
+    """The cover is off: the barrel, the loom, and nothing known about any of it."""
+    inner = hw.loom(wires([(False, False, "")] * 5), sel=0, clip=-1, joined=())
     return card(
-        inner,
-        "UNDER THE COLUMN - HOTWIRE IT",
-        "Hilux (Covered)  ·  Service loom  ·  5 wires",
-        "W3   COIL",
-        "LOOM",
+        inner, TITLE, SUBTITLE, "", "LOOM",
         "Goal: twist the live feed onto the one that runs to the coil. Strip a wire, then Volts and Ohms.",
+        LOOM_PLATES,
+    )
+
+
+def strip_card():
+    """Two wires read, a third selected with its sheath still on."""
+    inner = hw.loom(wires([
+        (True, False, "12 V"),
+        (True, False, "0 V  LAMPS"),
+        (False, False, ""),
+        (False, False, ""),
+        (False, False, ""),
+    ]), sel=2, clip=-1, joined=())
+    return card(
+        inner, TITLE, SUBTITLE, "W2   LAMPS", "LOOM",
+        "Wire 3 is still sheathed. Strip it, then put the meter across it.",
+        LOOM_PLATES,
+    )
+
+
+def tested_card():
+    """Every wire read. The battery feed and the coil feed are the pair."""
+    inner = hw.loom(wires([
+        (True, False, "12 V"),
+        (True, False, "0 V  LAMPS"),
+        (True, False, "0 V  COIL"),
+        (True, False, "0 V  SOLENOID"),
+        (True, True, "0 V  LAMPS"),
+    ]), sel=0, clip=-1, joined=())
+    return card(
+        inner, TITLE, SUBTITLE, "W3   COIL", "LOOM",
+        "Wire 1 is live and wire 3 runs to the coil. Twist on one, then the other.",
         ["Twist", "", "Volts", "Ohms", "Cut", "Back off"],
     )
 
 
-def crank_card():
-    """The pair twisted together and the engine catching."""
-    inner = hw.loom(
-        [(0, True, False, "12 V"), (8, True, False, "0 V  LAMPS"), (3, True, False, "0 V  COIL"),
-         (3, True, False, "0 V  SOLENOID"), (6, True, True, "0 V  LAMPS")],
-        sel=3, clip=-1, joined=(0, 2),
+def steering_card():
+    """The pair is twisted, the dash is live, the wheel is not free yet."""
+    inner = hw.loom(wires([
+        (True, False, "12 V"),
+        (True, False, "0 V  LAMPS"),
+        (True, False, "0 V  COIL"),
+        (True, False, "0 V  SOLENOID"),
+        (True, True, "0 V  LAMPS"),
+    ]), sel=2, clip=-1, joined=(0, 2))
+    return card(
+        inner, TITLE, SUBTITLE, "STEERING LOCK   64%", "STEERING",
+        "Hold Space to force the steering lock.",
+        ["", "Force", "", "", "", "Back off"],
     )
 
+
+def crank_card():
+    """The engine catching, which is the moment to let go."""
+    inner = hw.loom(wires([
+        (True, False, "12 V"),
+        (True, False, "0 V  LAMPS"),
+        (True, False, "0 V  COIL"),
+        (True, False, "0 V  SOLENOID"),
+        (True, True, "0 V  LAMPS"),
+    ]), sel=3, clip=-1, joined=(0, 2))
     return card(
-        inner,
-        "UNDER THE COLUMN - HOTWIRE IT",
-        "Hilux (Covered)  ·  Service loom  ·  5 wires",
-        "IT CATCHES - LET GO",
-        "IGNITION",
+        inner, TITLE, SUBTITLE, "IT CATCHES - LET GO", "IGNITION",
         "The dash is live. Hold Space to crank, and let go the moment the readout says it catches.",
         ["", "Crank", "", "", "", "Back off"],
     )
 
 
+CARDS = [
+    ("hotwire-shroud.jpg", shroud_card),
+    ("hotwire-loom.jpg", loom_card),
+    ("hotwire-strip.jpg", strip_card),
+    ("hotwire.jpg", tested_card),
+    ("hotwire-steering.jpg", steering_card),
+    ("hotwire-crank.jpg", crank_card),
+]
+
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
-    for name, fnc in (("hotwire.jpg", hotwire_card), ("hotwire-crank.jpg", crank_card)):
+    for name, fnc in CARDS:
         path = os.path.join(OUT, name)
         fnc().save(path, quality=92)
         print("wrote", path)
