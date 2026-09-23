@@ -57,6 +57,8 @@ In the driver's seat, open the ACE self-interaction menu and choose **Hotwire**.
 You need something to work with: any lock pick kit, a paperclip or a toolkit by
 default, and the setting can ask for a toolkit only, or for nothing at all.
 
+<img src="images/hotwire.jpg" alt="The hotwire board: the ignition barrel, its loom, and each wire's meter readings" width="820">
+
 The board runs in four stages.
 
 **1. The shroud.** The plastic cover over the column is held on by three to five
@@ -80,6 +82,8 @@ steering lock until it shears. Let go and it takes back what it gained.
 **4. The ignition.** Hold the lift key to crank. The engine turns over, and the
 moment the readout says it catches, let go. Keep holding and the starter grinds
 against a running engine, which costs you a cool-down.
+
+<img src="images/hotwire-crank.jpg" alt="The battery feed twisted onto the ignition feed, and the engine catching" width="820">
 
 ## The loom
 

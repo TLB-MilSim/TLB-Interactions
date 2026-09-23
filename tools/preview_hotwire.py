@@ -86,7 +86,7 @@ def shroud(screws=4):
 
 
 def loom(wires, sel, clip, joined):
-    """wires: [(colour index, stripped, cut), ...]"""
+    """wires: [(colour index, stripped, cut, meter note), ...]"""
     c = Image.new("RGBA", (BW, BH), (0, 0, 0, 255))
     c = place(c, "column_co", 0, 0, 1, 1)
     c = place(c, "barrel_ca", 0.02, 0.26, 0.20, 0.48)
@@ -99,7 +99,7 @@ def loom(wires, sel, clip, joined):
     def row_y(i):
         return top + (i + 0.5) * row_h
 
-    for i, (colour, stripped, cut) in enumerate(wires):
+    for i, (colour, stripped, cut, note) in enumerate(wires):
         y = row_y(i)
         tint = PALETTE[colour]
         h = min(row_h * 1.5, 0.24)
@@ -115,6 +115,9 @@ def loom(wires, sel, clip, joined):
 
         if stripped and not cut:
             c = place(c, "strip_ca", strip_x - 0.024, y - h * 0.13, 0.048, h * 0.26)
+
+        if note:
+            c = label(c, note, 0.62, y - row_h * 0.34, 0.24, row_h * 0.68, (204, 168, 76, 255))
 
         tag_tint = (219, 204, 107) if i == clip else (158, 153, 135)
         c = place(c, "tag_ca", 0.875, y - row_h * 0.36, 0.105, row_h * 0.72, tag_tint)
@@ -132,7 +135,8 @@ if __name__ == "__main__":
     frames = [
         shroud(4),
         loom(
-            [(0, True, False), (8, False, False), (3, True, False), (3, True, False), (6, False, True)],
+            [(0, True, False, "12 V"), (8, False, False, ""), (3, True, False, "0 V  COIL"),
+             (3, True, False, "0 V  LAMPS"), (6, False, True, "")],
             sel=2, clip=0, joined=(0, 2),
         ),
     ]
