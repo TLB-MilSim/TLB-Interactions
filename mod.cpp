@@ -1,11 +1,12 @@
 name = "TLB Interactions";
 author = "TLB MilSim";
-description = "Hands-on defusal and lockpicking. Replaces ACE's defusal progress bar with real procedures for IEDs, mines and tripwires, and picks locked doors with a kit or a paperclip. Requires CBA_A3 and ACE3. Licensed APL-ND.";
+version = "1.2.0";
+description = "Hands-on defusal and lockpicking. Replaces ACE's defusal progress bar with real procedures for IEDs, mines and tripwires, and picks locked doors and vehicles with a kit or a paperclip, with hotwiring for a vehicle that has no key. Requires CBA_A3 and ACE3. Licensed APL-ND.";
 picture = "\tlbi\addons\main\data\logo_ca.paa";
 logo = "\tlbi\addons\main\data\logo_ca.paa";
 logoSmall = "\tlbi\addons\main\data\logo_small_ca.paa";
 logoOver = "\tlbi\addons\main\data\logo_ca.paa";
 tooltip = "TLB Interactions";
 tooltipOwned = "TLB Interactions";
-overview = "No more progress bars. Dig out an IED, strip its tape and find the firing line with a meter; prod out a mine and pin its fuze with a steady hand; trace a tripwire, read its tension and cut it safely. Locked doors are picked on a board with a lock pick kit or a paperclip. Works with every explosive ACE can defuse, with or without tsp_breach.";
+overview = "No more progress bars. Dig out an IED, strip its tape and find the firing line with a meter; prod out a mine and pin its fuze with a steady hand; trace a tripwire, read its tension and cut it safely. Locked doors and vehicles are picked on a board with a lock pick kit or a paperclip, and a vehicle with no key is hotwired under the steering column. Works with every explosive ACE can defuse, with or without tsp_breach.";
 action = "https://github.com/TLB-MilSim/TLB-Interactions";

@@ -26,14 +26,20 @@
 
 ---
 
-## What's new in 1.1.0
+## What's new in 1.2.0
 
-- **Eden modules:** *Explosive settings* and *Lock settings* configure every explosive or door inside their area.
-- **Zeus modules and context menu:** the same options for one explosive or door in a live mission (needs Zeus Enhanced).
-- **Rebindable keys:** Seat pin and the lockpicking controls, in Configure Addons.
-- **New setting:** *Grass on tripwires inside buildings*.
+- **Vehicle locks on the board:** a locked vehicle is picked with a kit or a
+  paperclip, in place of ACE's Lockpick progress bar.
+- **Hotwiring:** a vehicle that was locked does not start without its key. Under
+  the steering column there is a shroud to unscrew and a loom to read with a
+  meter, and the wrong pair twisted together blows a fuse or sets the horn off.
+- **TLB Keys handover:** with [TLB Keys](https://github.com/TLB-MilSim/TLB-Keys)
+  loaded, one setting decides which mod owns vehicle picking and hotwiring.
+- **Cheaper door lock scanning**, thanks to a contribution from
+  [@RicGonzalezb](https://github.com/RicGonzalezb).
 
-See the [changelog](CHANGELOG.md) for details and screenshots.
+See the [changelog](CHANGELOG.md) for details, and [Vehicles](docs/vehicles.md)
+for the full walkthrough.
 
 ## What it is
 
