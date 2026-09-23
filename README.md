@@ -108,9 +108,13 @@ can be rebound.
 
 **Vehicles**: the hotwire board, and the engine catching
 
-| Reading the loom | Cranking it |
+| 1. The shroud | 2. The loom |
 | --- | --- |
-| <img src="docs/images/hotwire.jpg" alt="The hotwire board with the loom and its meter readings" width="400"> | <img src="docs/images/hotwire-crank.jpg" alt="The battery feed twisted onto the ignition feed and the engine catching" width="400"> |
+| <img src="docs/images/hotwire-shroud.jpg" alt="The column shroud with its screws still in" width="400"> | <img src="docs/images/hotwire-loom.jpg" alt="The shroud off, showing the ignition barrel and its loom" width="400"> |
+
+| 3. Stripped and read | 4. Twisted, and it catches |
+| --- | --- |
+| <img src="docs/images/hotwire.jpg" alt="Every wire read: the battery feed and the coil feed found" width="400"> | <img src="docs/images/hotwire-crank.jpg" alt="The engine catching, which is the moment to let go" width="400"> |
 
 **Modules**, in Eden and Zeus
 
