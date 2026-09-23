@@ -106,6 +106,12 @@ can be rebound.
 | --- | --- | --- |
 | <img src="docs/images/lockpick-pins.jpg" alt="Pin tumbler cut-away with two pins set" width="270"> | <img src="docs/images/lockpick-rake.jpg" alt="Rake with the tension gauge" width="270"> | <img src="docs/images/lockpick-sweetspot.jpg" alt="Sweet spot lock face with the strain gauge" width="270"> |
 
+**Vehicles**: the hotwire board, and the engine catching
+
+| Reading the loom | Cranking it |
+| --- | --- |
+| <img src="docs/images/hotwire.jpg" alt="The hotwire board with the loom and its meter readings" width="400"> | <img src="docs/images/hotwire-crank.jpg" alt="The battery feed twisted onto the ignition feed and the engine catching" width="400"> |
+
 **Modules**, in Eden and Zeus
 
 | Eden: Explosive settings | Zeus: context menu | Zeus: Lock settings |
