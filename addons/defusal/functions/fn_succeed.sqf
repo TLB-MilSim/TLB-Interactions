@@ -8,12 +8,13 @@
  * Arguments:
  * 0: Unit <OBJECT>
  * 1: Explosive <OBJECT>
+ * 2: Finished on the hybrid mode bar rather than the board <BOOL> (default: false)
  *
  * Return Value:
  * None
  */
 
-params ["_unit", "_explosive"];
+params ["_unit", "_explosive", ["_stock", false]];
 
 uiNamespace setVariable ["tlbi_defusal_resolved", true];
 
@@ -23,9 +24,10 @@ uiNamespace setVariable ["tlbi_defusal_resolved", true];
 
 (uiNamespace getVariable ["tlbi_defusal_display", displayNull]) closeDisplay 1;
 
-if (tlbi_defusal_respectAceExplodeOnDefuse) exitWith {
+if (_stock || {tlbi_defusal_respectAceExplodeOnDefuse}) exitWith {
     // Let ACE roll its own explode-on-defuse chance, for groups that want the
-    // stock risk on top of the minigame.
+    // stock risk on top of the minigame - and always when the job was finished
+    // on the hybrid mode bar, which is ACE's bar and carries ACE's risk.
     [_unit, _explosive] call ace_explosives_fnc_defuseExplosive;
 };
 

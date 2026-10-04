@@ -19,12 +19,13 @@
  * 6: Unlock arguments <ARRAY>
  * 7: Lock class, or -1 to read it from the building <NUMBER> (default: -1)
  * 8: Object the rolled lock belongs to <OBJECT> (default: the building)
+ * 9: Hybrid mode bar [seconds, label] <ARRAY> (default: [], the door lock bar)
  *
  * Return Value:
  * Board opened <BOOL>
  */
 
-params ["_unit", "_house", "_door", "_tool", "_item", "_unlock", "_unlockArgs", ["_classOverride", -1], ["_owner", objNull]];
+params ["_unit", "_house", "_door", "_tool", "_item", "_unlock", "_unlockArgs", ["_classOverride", -1], ["_owner", objNull], ["_hybrid", []]];
 
 // A vehicle lock is picked on a stand-in building at the player's feet, so the
 // class and the object that remembers the rolled technique are passed in.
@@ -234,5 +235,18 @@ _display displayAddEventHandler ["KeyUp", {
 [] call tlbi_lockpick_fnc_refresh;
 
 [{ _this call tlbi_lockpick_fnc_tick }, 0, []] call CBA_fnc_addPerFrameHandler;
+
+// Hybrid mode: a bar underneath the board. A door has no stock bar whose time
+// can be read - tsp_breach does not expose one - so it gets the Door lock bar
+// setting, longer for a harder door. A vehicle passes ACE's own lockpick time.
+// Nothing on this board is ever mid-action, so FINISH is never held up.
+if (tlbi_hybrid_enabled) then {
+    _hybrid params [
+        ["_time", tlbi_hybrid_doorTime * (tlbi_hybrid_classScale select (_class min DOOR_REINFORCED))],
+        ["_label", localize "STR_tlbi_hybrid_bar_door"]
+    ];
+
+    [_display, _time, _label, { false }, { call tlbi_lockpick_fnc_finish }] call tlbi_defusal_fnc_hybridBar;
+};
 
 true

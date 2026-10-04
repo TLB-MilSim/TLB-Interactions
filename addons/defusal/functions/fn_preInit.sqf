@@ -35,6 +35,15 @@ tlbi_defusal_grassTime = 0.7;
 tlbi_defusal_tensionTime = 2;
 tlbi_defusal_branchChance = 0.3;
 tlbi_defusal_tripIndoorGrass = true;
+tlbi_hybrid_enabled = false;
+tlbi_hybrid_timeScale = 1;
+tlbi_hybrid_doorTime = 10;
+tlbi_hybrid_hotwireTime = 30;
+
+// Hybrid mode bars that are this mod's own, with no stock bar to borrow a time
+// from, take longer the harder the lock: [civilian, military or service,
+// reinforced or armoured].
+tlbi_hybrid_classScale = [1, 1.5, 2];
 
 // Difficulty presets. Every slider below stays the base value; the preset
 // adjusts it where it is used (see DIFF_* in script_component.hpp):
@@ -250,6 +259,35 @@ tlbi_defusal_palette = [
     "tlbi_defusal_tripIndoorGrass", "CHECKBOX",
     ["$STR_tlbi_defusal_set_tripIndoorGrass", "$STR_tlbi_defusal_set_tripIndoorGrass_desc"],
     TRIP_CATEGORY, true, 1
+] call CBA_fnc_addSetting;
+
+// --- Hybrid mode ------------------------------------------------------------
+// Every board reads these, not only defusal: this addon is the one the
+// lockpicking and vehicle boards already build on (fn_hybridBar).
+#define HYBRID_CATEGORY ["$STR_tlbi_settings_category", "$STR_tlbi_hybrid_settings_sub"]
+
+[
+    "tlbi_hybrid_enabled", "CHECKBOX",
+    ["$STR_tlbi_hybrid_set_enabled", "$STR_tlbi_hybrid_set_enabled_desc"],
+    HYBRID_CATEGORY, false, 1
+] call CBA_fnc_addSetting;
+
+[
+    "tlbi_hybrid_timeScale", "SLIDER",
+    ["$STR_tlbi_hybrid_set_timeScale", "$STR_tlbi_hybrid_set_timeScale_desc"],
+    HYBRID_CATEGORY, [0.25, 10, 1, 2], 1
+] call CBA_fnc_addSetting;
+
+[
+    "tlbi_hybrid_doorTime", "SLIDER",
+    ["$STR_tlbi_hybrid_set_doorTime", "$STR_tlbi_hybrid_set_doorTime_desc"],
+    HYBRID_CATEGORY, [1, 120, 10, 0], 1
+] call CBA_fnc_addSetting;
+
+[
+    "tlbi_hybrid_hotwireTime", "SLIDER",
+    ["$STR_tlbi_hybrid_set_hotwireTime", "$STR_tlbi_hybrid_set_hotwireTime_desc"],
+    HYBRID_CATEGORY, [5, 300, 30, 0], 1
 ] call CBA_fnc_addSetting;
 
 diag_log text "[TLB Interactions] preInit: done";

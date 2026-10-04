@@ -39,6 +39,10 @@ it is not picked, not hotwired and not touched by the ignition lock. ACE's
 `ace_vehiclelock_lockpickStrength` of -1, and a vehicle a mission or Zeus marked
 as not pickable, are left alone the same way.
 
+With [Hybrid mode](settings.md#hybrid-mode) on, ACE's own lockpick bar runs in a
+strip under the board, for as long as ACE would take on that vehicle. Pick the
+lock to get in sooner, or let the bar fill and press **FINISH**.
+
 ## The ignition lock
 
 Picking the lock opens the doors. With *Ignition lock* on, which is the default,
@@ -56,6 +60,12 @@ again.
 In the driver's seat, open the ACE self-interaction menu and choose **Hotwire**.
 You need something to work with: any lock pick kit, a paperclip or a toolkit by
 default, and the setting can ask for a toolkit only, or for nothing at all.
+
+With [Hybrid mode](settings.md#hybrid-mode) on, a hotwire bar runs in a strip
+under the board, longer for a service vehicle and longer again for armour. Work
+the column to get going sooner, or let the bar fill and press **FINISH** to start
+the engine. A strip, reading or twist already under way resolves first, so a
+short still blows the fuse.
 
 The board runs in four stages.
 

@@ -43,6 +43,7 @@ class CfgFunctions {
             class drawBoard {};
             class explosiveValue {};
             class findExplosive {};
+            class hybridBar {};
             class isIndoors {};
             class keyMatches {};
             class keyName {};

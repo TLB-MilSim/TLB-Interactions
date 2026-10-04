@@ -2,6 +2,20 @@
 
 [← Back to README](README.md)
 
+## Unreleased
+
+### Added
+
+- **Hybrid mode** (off by default). Every board also runs the progress bar it
+  replaces, in a strip under the board. Work the board to finish sooner, or let
+  the bar fill and press **FINISH** to complete the job the stock way. Defusal
+  and vehicle locks use ACE's own bar times, and finishing a defusal on the bar
+  rolls ACE's explode-on-defuse chance like ACE's bar does. Doors and hotwiring
+  have no stock bar, so they get bars of their own, longer for harder locks.
+  **FINISH** never cuts a cut, reading or twist short: it waits for that action
+  to resolve. Settings under *TLB Interactions → Hybrid mode*, see
+  [Hybrid mode](docs/settings.md#hybrid-mode).
+
 ## 1.2.0 (2026-09-23)
 
 ### Added
