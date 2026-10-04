@@ -18,6 +18,7 @@ what happens under the hood.
 - [tsp_breach takeover](#tsp_breach-takeover)
 - [The built-in door system](#the-built-in-door-system)
 - [Vehicles and hotwiring](#vehicles-and-hotwiring)
+- [Hybrid mode](#hybrid-mode)
 - [Stand-in items](#stand-in-items)
 - [Drawing the boards](#drawing-the-boards)
 - [Modules and keybinds](#modules-and-keybinds)
@@ -330,6 +331,31 @@ replacement time is up.
 completely and TLB Keys stands down; off, TLB Keys keeps its own system and
 nothing here runs. What one vehicle allows, such as a lock marked unpickable,
 still comes from whoever owns that vehicle.
+
+## Hybrid mode
+
+`tlbi_defusal_fnc_hybridBar` is shared by all three boards and lives in the
+defusal addon, which the other two already build on. Its settings (`tlbi_hybrid_*`)
+are registered in the defusal preInit for the same reason. When
+*Hybrid mode* is on, each board calls it as it opens with a bar time, a label, a
+busy check and a finish:
+
+| Board | Called from | Bar time | Busy while | Finish |
+| --- | --- | --- | --- | --- |
+| Defusal | `fn_openBoard` | ACE's formula from `ace_explosives_fnc_startDefuse` | a timed action runs (`tlbi_defusal_busy` but not `tlbi_defusal_pinning`) | `fn_succeed` with its *stock* flag, which hands over to `ace_explosives_fnc_defuseExplosive` so ACE rolls its explode-on-defuse chance |
+| Lock, door | `tlbi_lockpick_fnc_start` | *Door lock bar* × door class | never | `tlbi_lockpick_fnc_finish` |
+| Lock, vehicle | `tlbi_vehicle_fnc_pick`, as `fn_start`'s tenth argument | `ace_vehiclelock_lockpickStrength` or ACE's default | never | `tlbi_lockpick_fnc_finish` |
+| Hotwire | `fn_hotwireStart` | *Hotwire bar* × vehicle class | `fn_hotwireRun` runs (the state's `busy`) | `fn_hotwireFinish` |
+
+The strip (a fill, the label and time left, and a **FINISH** plate) is made with
+`ctrlCreate` under the board's case, so no dialog config changes and it goes when
+the display does. One per-frame handler drives it on `CBA_missionTime`, as ACE's
+`ace_common_fnc_progressBar` does. **FINISH** only sets `tlbi_hybrid_pending` on
+the display; the handler runs the finish on the first frame the busy check is
+false. A committed action therefore always resolves first, and if it ends the
+job (a detonation, a burnt-out harness, a snapped paperclip) the display is
+already closed and the handler removes itself without finishing. `fn_autoClear`
+starts nothing while a finish is pending, so it cannot keep one waiting forever.
 
 ## Stand-in items
 

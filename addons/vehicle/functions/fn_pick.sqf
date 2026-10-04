@@ -28,6 +28,12 @@ if (!([_unit, _vehicle] call tlbi_vehicle_fnc_canPick)) exitWith { false };
 private _helper = "Land_HelipadEmpty_F" createVehicleLocal [0, 0, 0];
 _helper setPosASL getPosASL _unit;
 
+// Hybrid mode runs ACE's own lockpick bar underneath, for as long as ACE would
+// take on this vehicle. ACE's default can be -1, "not pickable", which this mod
+// has never applied to its board, so that falls back to ACE's stock 10 s.
+private _strength = _vehicle getVariable ["ace_vehiclelock_lockpickStrength", missionNamespace getVariable ["ace_vehiclelock_defaultLockpickStrength", 10]];
+if (!(_strength isEqualType 0) || {_strength < 0}) then { _strength = 10 };
+
 private _opened = [
     _unit, _helper, "tlbi_vehicle_lock", _tool, _item,
     {
@@ -36,7 +42,8 @@ private _opened = [
     },
     [_vehicle, _unit],
     [_vehicle] call tlbi_vehicle_fnc_lockClass,
-    _vehicle
+    _vehicle,
+    [_strength, localize "STR_ACE_VehicleLock_Action_LockpickInUse"]
 ] call tlbi_lockpick_fnc_start;
 
 if (!_opened) exitWith {

@@ -75,6 +75,11 @@ it, TLB Interactions runs its own door menu and random door locking.
 change how the explosives and doors in one area behave in Eden, or configure a
 single explosive or door in a live mission from Zeus.
 
+**Hybrid mode.** For groups that want the choice, one setting brings the bars
+back without taking the boards away: the stock bar runs in a strip under the
+board, and once it fills, **FINISH** completes the job the stock way. Work the
+board to beat the bar. Off by default; see [Hybrid mode](docs/settings.md#hybrid-mode).
+
 Everything else is configurable through CBA settings, down to separate
 difficulty levels for each lockpicking technique with each tool, and every key
 can be rebound.

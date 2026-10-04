@@ -24,6 +24,10 @@ if (isNull (uiNamespace getVariable ["tlbi_defusal_display", displayNull])) exit
 if (uiNamespace getVariable ["tlbi_defusal_busy", false]) exitWith {};
 if (uiNamespace getVariable ["tlbi_defusal_resolved", false]) exitWith {};
 
+// Hybrid mode FINISH waits for the board to be free; more clearing would keep it
+// waiting.
+if ((uiNamespace getVariable ["tlbi_defusal_display", displayNull]) getVariable ["tlbi_hybrid_pending", false]) exitWith {};
+
 private _explosive = uiNamespace getVariable ["tlbi_defusal_explosive", objNull];
 
 if (isNull _explosive) exitWith {};

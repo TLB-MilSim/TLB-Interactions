@@ -104,4 +104,18 @@ _display displayAddEventHandler ["KeyUp", {
 
 [{ _this call tlbi_vehicle_fnc_hotwireTick }, 0, []] call CBA_fnc_addPerFrameHandler;
 
+// Hybrid mode: ACE has no hotwiring, so the bar underneath is this mod's own,
+// the Hotwire bar setting, longer for a service vehicle and longer again for
+// armour. A strip, a reading or a twist under way resolves before FINISH does,
+// so a short cannot be finished over.
+if (tlbi_hybrid_enabled) then {
+    [
+        _display,
+        tlbi_hybrid_hotwireTime * (tlbi_hybrid_classScale select ((_state get "class") min VEH_ARMOURED)),
+        localize "STR_tlbi_hybrid_bar_hotwire",
+        { (uiNamespace getVariable ["tlbi_vehicle_state", createHashMap]) getOrDefault ["busy", false] },
+        { call tlbi_vehicle_fnc_hotwireFinish }
+    ] call tlbi_defusal_fnc_hybridBar;
+};
+
 true

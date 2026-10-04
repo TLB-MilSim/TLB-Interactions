@@ -62,6 +62,12 @@ Every board shares the same layout:
   prod, dig and seat pin; tension, pin and cut wire).
 - **Back away:** closes the board. Progress is kept.
 - **Anti-tamper clock:** only when the server enables it.
+- **Hybrid bar:** only when the server enables [Hybrid mode](settings.md#hybrid-mode).
+  ACE's own defuse bar runs in a strip under the board. Work the device to
+  finish sooner, or let the bar fill and press **FINISH** to defuse it the ACE
+  way, with ACE's explode-on-defuse chance. An anti-tamper SLAM always fires on
+  the bar, so defuse that one on the board. A cut or a reading already under way
+  resolves before **FINISH** takes effect.
 
 ---
 

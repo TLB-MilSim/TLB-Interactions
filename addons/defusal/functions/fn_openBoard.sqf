@@ -152,6 +152,34 @@ _display displayAddEventHandler ["KeyUp", {
 
 [] call tlbi_defusal_fnc_refreshBoard;
 
+// Hybrid mode: ACE's own defuse bar runs underneath, for as long as ACE would
+// take - 5 s or the ammo's ace_explosives_defuseTime, half as long again for a
+// non-specialist - and finishing on it ends the way ACE's bar ends.
+if (tlbi_hybrid_enabled) then {
+    private _time = [configOf _explosive >> "ace_explosives_defuseTime", "NUMBER", 5] call CBA_fnc_getConfigEntry;
+    if (!(_unit call ace_common_fnc_isEOD) && {missionNamespace getVariable ["ace_explosives_punishNonSpecialists", true]}) then {
+        _time = _time * 1.5;
+    };
+
+    [
+        _display, _time, localize "STR_ACE_Explosives_DefusingExplosive",
+        {
+            // A cut, a reading or a prod under way resolves first. A pin being
+            // seated is not committed - letting go is safe - so it never holds
+            // the finish up.
+            (uiNamespace getVariable ["tlbi_defusal_busy", false]) && {!(uiNamespace getVariable ["tlbi_defusal_pinning", false])}
+        },
+        {
+            if (uiNamespace getVariable ["tlbi_defusal_resolved", false]) exitWith {};
+            [
+                uiNamespace getVariable ["tlbi_defusal_unit", objNull],
+                uiNamespace getVariable ["tlbi_defusal_explosive", objNull],
+                true
+            ] call tlbi_defusal_fnc_succeed;
+        }
+    ] call tlbi_defusal_fnc_hybridBar;
+};
+
 // Watchdog: close the board if the player dies, is dragged away or the device
 // stops existing, and drive the anti-tamper clock when one is configured.
 [{

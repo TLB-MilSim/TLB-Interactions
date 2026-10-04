@@ -585,5 +585,49 @@
                 <English>Start the device again with these settings. Any progress on it is lost. Needed for procedure, burial, grass and branch on a device someone has already opened.</English>
             </Key>
         </Container>
+        <Container name="Hybrid">
+            <Key ID="STR_tlbi_hybrid_btn_finish">
+                <English>FINISH</English>
+            </Key>
+            <Key ID="STR_tlbi_hybrid_bar_ready">
+                <English>BAR FULL - PRESS FINISH</English>
+            </Key>
+            <Key ID="STR_tlbi_hybrid_bar_pending">
+                <English>FINISHING WHEN YOUR HANDS ARE FREE ...</English>
+            </Key>
+            <Key ID="STR_tlbi_hybrid_bar_door">
+                <English>Picking Lock...</English>
+            </Key>
+            <Key ID="STR_tlbi_hybrid_bar_hotwire">
+                <English>Hotwiring...</English>
+            </Key>
+            <Key ID="STR_tlbi_hybrid_settings_sub">
+                <English>Hybrid mode</English>
+            </Key>
+            <Key ID="STR_tlbi_hybrid_set_enabled">
+                <English>Hybrid mode</English>
+            </Key>
+            <Key ID="STR_tlbi_hybrid_set_enabled_desc">
+                <English>Every board also runs the progress bar it replaces, in a strip under the board. Work the board to finish sooner, or let the bar fill and press FINISH to complete the job the stock way, with the stock risks: ACE's explode-on-defuse chance still applies. Backing away stops the bar.</English>
+            </Key>
+            <Key ID="STR_tlbi_hybrid_set_timeScale">
+                <English>Bar time multiplier</English>
+            </Key>
+            <Key ID="STR_tlbi_hybrid_set_timeScale_desc">
+                <English>Multiplies every hybrid bar: ACE's defuse and vehicle lockpick times, and the door and hotwire bars below. 2 is twice as long, which makes working the board worth more.</English>
+            </Key>
+            <Key ID="STR_tlbi_hybrid_set_doorTime">
+                <English>Door lock bar (s)</English>
+            </Key>
+            <Key ID="STR_tlbi_hybrid_set_doorTime_desc">
+                <English>Bar time for picking a civilian door. Military doors take 1.5 times as long, reinforced doors twice. Doors have no stock bar to borrow, and tsp_breach's own picking time is not read.</English>
+            </Key>
+            <Key ID="STR_tlbi_hybrid_set_hotwireTime">
+                <English>Hotwire bar (s)</English>
+            </Key>
+            <Key ID="STR_tlbi_hybrid_set_hotwireTime_desc">
+                <English>Bar time for hotwiring a civilian vehicle. Service vehicles take 1.5 times as long, armour and aircraft twice. ACE has no hotwiring, so this bar is the mod's own.</English>
+            </Key>
+        </Container>
     </Package>
 </Project>

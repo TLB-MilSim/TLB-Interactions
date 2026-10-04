@@ -21,6 +21,7 @@ settings files.
 - [Lockpicking levels](#lockpicking-levels)
 - [Lockpicking - Doors without tsp_breach](#lockpicking---doors-without-tsp_breach)
 - [Vehicles](#vehicles)
+- [Hybrid mode](#hybrid-mode)
 - [Keybinds](#keybinds)
 - [Example settings file](#example-settings-file)
 
@@ -230,6 +231,44 @@ Per vehicle, from a script or an Eden init line:
 | `vehicle setVariable ["tlbi_vehicle_pickable", false, true]` | This lock cannot be picked. |
 | `vehicle setVariable ["tlbi_vehicle_hotwirable", false, true]` | This vehicle cannot be hotwired. |
 | `vehicle setVariable ["tlbi_vehicle_hotwired", true, true]` | It runs without its key, as though it had been hotwired. |
+
+---
+
+## Hybrid mode
+
+Brings the progress bars back without taking the boards away. Every board also
+runs the bar it replaces, in a strip under the board. Players can work the board
+to finish sooner, or wait for the bar to fill and press **FINISH**, which
+completes the job the way the stock bar would have. Off by default.
+
+| Setting | Variable | Default | Range | Effect |
+| --- | --- | --- | --- | --- |
+| Hybrid mode | `tlbi_hybrid_enabled` | off | on / off | Every board runs a bar underneath it, with a **FINISH** button that lights up when the bar is full. |
+| Bar time multiplier | `tlbi_hybrid_timeScale` | 1 | 0.25 to 10 | Multiplies every bar below. ACE's defuse bar is only 5 to 7.5 s, so raise this to make working the board worth more. |
+| Door lock bar (s) | `tlbi_hybrid_doorTime` | 10 | 1 to 120 | Bar time for picking a civilian door. Military doors take ×1.5, reinforced ×2. |
+| Hotwire bar (s) | `tlbi_hybrid_hotwireTime` | 30 | 5 to 300 | Bar time for hotwiring a civilian vehicle. Service vehicles take ×1.5, armour and aircraft ×2. |
+
+Where each bar's time comes from, and what **FINISH** does. Every time is then
+multiplied by *Bar time multiplier*.
+
+| Board | Bar time | FINISH |
+| --- | --- | --- |
+| Defusal, every device | ACE's: 5 s, or the ammo's `ace_explosives_defuseTime`, ×1.5 for a non-specialist while ACE's *Punish non-specialists* is on | ACE's own defusal, including ACE's explode-on-defuse chance. An anti-tamper SLAM always fires that way, exactly as on ACE's bar; only the board defuses it safely. |
+| Door lock | *Door lock bar*, with or without tsp_breach (tsp_breach's own picking time is not read) | Unlocks the door. Nothing is bent or used up. |
+| Vehicle lock | ACE's: the vehicle's `ace_vehiclelock_lockpickStrength`, or ACE's *Default lockpick strength* (10 s; -1 counts as 10) | Unlocks the vehicle. The ignition lock still applies. |
+| Hotwire | *Hotwire bar* | Starts the engine, exactly as a finished hotwire. |
+
+How the bar behaves:
+
+- It runs on game time, like ACE's bar, and only while the board is open. Backing
+  away stops it, and the next attempt starts it from empty. Work done on the
+  board itself is kept as usual.
+- **FINISH** never cuts a committed action short. Pressed during a cut, a
+  reading, a prod or a twist, it waits for that action to resolve: a wrong cut
+  still fires the device, and a short still blows the fuse. A pin being seated
+  does not hold it up, because letting go of a pin is safe anyway.
+- With *Auto-clear dirt and grass* on, clearing stops as soon as **FINISH** is
+  pressed, so the finish is not kept waiting.
 
 ---
 

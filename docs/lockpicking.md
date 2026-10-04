@@ -79,6 +79,10 @@ rebind them under *Configure Addons* (see [Keybinds](settings.md#keybinds)). Wal
 or getting into a vehicle closes the board. Progress on a lock is **not** kept
 when the board closes. Once the tension wrench comes out, set pins fall back.
 
+With [Hybrid mode](settings.md#hybrid-mode) on, a lock bar runs in a strip under
+the board. Pick the lock to get in sooner, or let the bar fill and press
+**FINISH** to open it without picking. Closing the board stops the bar too.
+
 ---
 
 ## Pin tumbler
